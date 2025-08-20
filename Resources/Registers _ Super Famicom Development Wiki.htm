@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="theme-color" content="#222222">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registers | Super Famicom Development Wiki</title>
+<link rel="stylesheet" href="Registers%20_%20Super%20Famicom%20Development%20Wiki_files/style.css" media="all">
+<link rel="apple-touch-icon" href="https://wiki.superfamicom.org/apple-touch-icon.png">
+<link rel="preconnect" href="https://snes.in/" crossorigin="">
+<link rel="dns-prefetch" href="https://snes.in/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="description" content="SNES Memory Mapped I/O Registers">
+<meta property="og:description" content="SNES Memory Mapped I/O Registers">
+<meta property="twitter:description" content="SNES Memory Mapped I/O Registers">
+<meta property="og:title" content="Registers">
+<meta property="twitter:title" content="Registers">
+<meta property="og:site_name" content="Super Famicom Development Wiki">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@superfamicom">
+<meta name="twitter:creator" content="@superfamicom">
+<meta property="article:publisher" content="https://wiki.superfamicom.org">
+<meta property="og:url" content="https://wiki.superfamicom.org/registers">
+<link rel="canonical" href="https://wiki.superfamicom.org/registers">
+<meta property="article:modified_time" content="2023-02-26T10:14:50.043Z">
+<meta property="og:updated_time" content="2023-02-26T10:14:50.043Z">
+<script>window.basePath = '';</script>
+</head>
+<body class="dark-theme">
+<header class="navbar" role="banner">
+  <div class="background">
+    <div class="container">
+      <div class="navbar-header">
+        <h2 class="navbar-brand">
+          <a href="https://wiki.superfamicom.org/" title="Super Famicom Development Wiki">SFC Development Wiki</a>
+        </h2>
+        <form role="search" method="get" name="search" class="navbar-form" action="/search">
+          <input type="text" aria-label="Search" name="s" class="form-control search-query" placeholder="🔍 Search Super Famicom Development Wiki" required="">
+        </form>
+        <div class="navbar-buttons">
+          <div class="navbar-button">
+            <button class="theme-toggle" type="button" title="Toggle Light Mode &amp; Dark Mode">🌚</button>
+          </div>
+          <div class="navbar-button">
+            <a href="https://wiki.superfamicom.org/tags" class="button tags" title="Browse Document Tags">Browse Tags</a>
+          </div>
+          <div class="navbar-button">
+            <a href="https://wiki.superfamicom.org/new" class="button new-document" title="Create New Document">New Document</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="flash-messages container">
+</div>
+<div class="before-main-wrapper">
+  <div class="header-wrapper">
+    <div class="container">
+      <div class="header-titles">
+        <h1>Registers</h1>
+        <a class="button" href="https://wiki.superfamicom.org/registers/edit" title="Edit">✏️ Edit</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container main-section detail">
+  <div class="content">
+    <div class="row">
+      <main class="col-sm-12" role="main">
+        <nav class="table-of-contents"><ul class="table-of-contents-h2"><li class="active"><a href="#address-bus-b-registers-1" title="Address Bus B Registers">Address Bus B Registers</a></li><li><a href="#old-style-joypad-registers-80" title="Old Style Joypad Registers">Old Style Joypad Registers</a></li><li><a href="#internal-cpu-registers-88" title="Internal CPU Registers">Internal CPU Registers</a></li><li><ul class="table-of-contents-h3"><li><a href="#dma-registers-124" title="DMA Registers">DMA Registers</a></li></ul></li><li><a href="#hdma-registers-141" title="HDMA Registers">HDMA Registers</a></li><li><a href="#register-explanations-163" title="Register Explanations">Register Explanations</a></li><li><ul class="table-of-contents-h3"><li><a href="#inidisp-screen-display-186" title="INIDISP - Screen Display">INIDISP - Screen Display</a></li><li><a href="#obsel-object-size-and-character-address-196" title="OBSEL - Object Size and Character Address">OBSEL - Object Size and Character Address</a></li><li><a href="#oamaddl-oam-address-low-byte-214" title="OAMADDL - OAM Address low byte">OAMADDL - OAM Address low byte</a></li><li><a href="#oamaddh-oam-address-high-bit-and-obj-priority-215" title="OAMADDH - OAM Address high bit and Obj Priority">OAMADDH - OAM Address high bit and Obj Priority</a></li><li><a href="#oamdata-data-for-oam-write-231" title="OAMDATA - Data for OAM write">OAMDATA - Data for OAM write</a></li><li><a href="#bgmode-bg-mode-and-character-size-244" title="BGMODE - BG Mode and Character Size">BGMODE - BG Mode and Character Size</a></li><li><a href="#mosaic-screen-pixelation-272" title="MOSAIC - Screen Pixelation">MOSAIC - Screen Pixelation</a></li><li><a href="#bg1sc-bg1-tilemap-address-and-size-291" title="BG1SC - BG1 Tilemap Address and Size">BG1SC - BG1 Tilemap Address and Size</a></li><li><a href="#bg2sc-bg2-tilemap-address-and-size-292" title="BG2SC - BG2 Tilemap Address and Size">BG2SC - BG2 Tilemap Address and Size</a></li><li><a href="#bg3sc-bg3-tilemap-address-and-size-293" title="BG3SC - BG3 Tilemap Address and Size">BG3SC - BG3 Tilemap Address and Size</a></li><li><a href="#bg4sc-bg4-tilemap-address-and-size-294" title="BG4SC - BG4 Tilemap Address and Size">BG4SC - BG4 Tilemap Address and Size</a></li><li><a href="#bg12nba-bg1-and-2-chr-address-309" title="BG12NBA - BG1 and 2 Chr Address">BG12NBA - BG1 and 2 Chr Address</a></li><li><a href="#bg34nba-bg3-and-4-chr-address-310" title="BG34NBA - BG3 and 4 Chr Address">BG34NBA - BG3 and 4 Chr Address</a></li><li><a href="#bg1hofs-bg1-horizontal-scroll-323" title="BG1HOFS - BG1 Horizontal Scroll">BG1HOFS - BG1 Horizontal Scroll</a></li><li><a href="#m7hofs-mode-7-bg-horizontal-scroll-324" title="M7HOFS  - Mode 7 BG Horizontal Scroll">M7HOFS  - Mode 7 BG Horizontal Scroll</a></li><li><a href="#bg1vofs-bg1-vertical-scroll-325" title="BG1VOFS - BG1 Vertical Scroll">BG1VOFS - BG1 Vertical Scroll</a></li><li><a href="#m7vofs-mode-7-bg-vertical-scroll-326" title="M7VOFS  - Mode 7 BG Vertical Scroll">M7VOFS  - Mode 7 BG Vertical Scroll</a></li><li><a href="#bg2hofs-bg2-horizontal-scroll-343" title="BG2HOFS - BG2 Horizontal Scroll">BG2HOFS - BG2 Horizontal Scroll</a></li><li><a href="#bg2vofs-bg2-vertical-scroll-344" title="BG2VOFS - BG2 Vertical Scroll">BG2VOFS - BG2 Vertical Scroll</a></li><li><a href="#bg3hofs-bg3-horizontal-scroll-345" title="BG3HOFS - BG3 Horizontal Scroll">BG3HOFS - BG3 Horizontal Scroll</a></li><li><a href="#bg3vofs-bg3-vertical-scroll-346" title="BG3VOFS - BG3 Vertical Scroll">BG3VOFS - BG3 Vertical Scroll</a></li><li><a href="#bg4hofs-bg4-horizontal-scroll-347" title="BG4HOFS - BG4 Horizontal Scroll">BG4HOFS - BG4 Horizontal Scroll</a></li><li><a href="#bg4vofs-bg4-vertical-scroll-348" title="BG4VOFS - BG4 Vertical Scroll">BG4VOFS - BG4 Vertical Scroll</a></li><li><a href="#vmain-video-port-control-378" title="VMAIN - Video Port Control">VMAIN - Video Port Control</a></li><li><a href="#vmaddl-vram-address-low-byte-399" title="VMADDL - VRAM Address low byte">VMADDL - VRAM Address low byte</a></li><li><a href="#vmaddh-vram-address-high-byte-400" title="VMADDH - VRAM Address high byte">VMADDH - VRAM Address high byte</a></li><li><a href="#vmdatal-vram-data-write-low-byte-409" title="VMDATAL - VRAM Data Write low byte">VMDATAL - VRAM Data Write low byte</a></li><li><a href="#vmdatah-vram-data-write-high-byte-410" title="VMDATAH - VRAM Data Write high byte">VMDATAH - VRAM Data Write high byte</a></li><li><a href="#m7sel-mode-7-settings-420" title="M7SEL - Mode 7 Settings">M7SEL - Mode 7 Settings</a></li><li><a href="#m7a-mode-7-matrix-a-(also-used-with-dollar21346)-433" title="M7A - Mode 7 Matrix A (also used with $2134/6)">M7A - Mode 7 Matrix A (also used with $2134/6)</a></li><li><a href="#m7b-mode-7-matrix-b-(also-used-with-dollar21346)-434" title="M7B - Mode 7 Matrix B (also used with $2134/6)">M7B - Mode 7 Matrix B (also used with $2134/6)</a></li><li><a href="#m7c-mode-7-matrix-c-435" title="M7C - Mode 7 Matrix C">M7C - Mode 7 Matrix C</a></li><li><a href="#m7d-mode-7-matrix-d-436" title="M7D - Mode 7 Matrix D">M7D - Mode 7 Matrix D</a></li><li><a href="#m7x-mode-7-center-x-454" title="M7X - Mode 7 Center X">M7X - Mode 7 Center X</a></li><li><a href="#m7y-mode-7-center-y-455" title="M7Y - Mode 7 Center Y">M7Y - Mode 7 Center Y</a></li><li><a href="#cgadd-cgram-address-487" title="CGADD - CGRAM Address">CGADD - CGRAM Address</a></li><li><a href="#cgdata-cgram-data-write-498" title="CGDATA - CGRAM Data write">CGDATA - CGRAM Data write</a></li><li><a href="#w12sel-window-mask-settings-for-bg1-and-bg2-507" title="W12SEL - Window Mask Settings for BG1 and BG2">W12SEL - Window Mask Settings for BG1 and BG2</a></li><li><a href="#w34sel-window-mask-settings-for-bg3-and-bg4-508" title="W34SEL - Window Mask Settings for BG3 and BG4">W34SEL - Window Mask Settings for BG3 and BG4</a></li><li><a href="#wobjsel-window-mask-settings-for-obj-and-color-window-509" title="WOBJSEL - Window Mask Settings for OBJ and Color Window">WOBJSEL - Window Mask Settings for OBJ and Color Window</a></li><li><a href="#wh0-window-1-left-position-530" title="WH0 - Window 1 Left Position">WH0 - Window 1 Left Position</a></li><li><a href="#wh1-window-1-right-position-531" title="WH1 - Window 1 Right Position">WH1 - Window 1 Right Position</a></li><li><a href="#wh2-window-2-left-position-532" title="WH2 - Window 2 Left Position">WH2 - Window 2 Left Position</a></li><li><a href="#wh3-window-2-right-position-533" title="WH3 - Window 2 Right Position">WH3 - Window 2 Right Position</a></li><li><a href="#wbglog-window-mask-logic-for-bgs-545" title="WBGLOG - Window mask logic for BGs">WBGLOG - Window mask logic for BGs</a></li><li><a href="#wobjlog-window-mask-logic-for-objs-and-color-window-546" title="WOBJLOG - Window mask logic for OBJs and Color Window">WOBJLOG - Window mask logic for OBJs and Color Window</a></li><li><a href="#tm-main-screen-designation-567" title="TM - Main Screen Designation">TM - Main Screen Designation</a></li><li><a href="#ts-subscreen-designation-568" title="TS - Subscreen Designation">TS - Subscreen Designation</a></li><li><a href="#tmw-window-mask-designation-for-the-main-screen-578" title="TMW - Window Mask Designation for the Main Screen">TMW - Window Mask Designation for the Main Screen</a></li><li><a href="#tsw-window-mask-designation-for-the-subscreen-579" title="TSW - Window Mask Designation for the Subscreen">TSW - Window Mask Designation for the Subscreen</a></li><li><a href="#cgwsel-color-addition-select-588" title="CGWSEL - Color Addition Select">CGWSEL - Color Addition Select</a></li><li><a href="#cgadsub-color-math-designation-607" title="CGADSUB - Color math designation">CGADSUB - Color math designation</a></li><li><a href="#coldata-fixed-color-data-622" title="COLDATA - Fixed Color Data">COLDATA - Fixed Color Data</a></li><li><a href="#setini-screen-modevideo-select-639" title="SETINI - Screen Mode/Video Select">SETINI - Screen Mode/Video Select</a></li><li><a href="#mpyl-multiplication-result-low-byte-672" title="MPYL - Multiplication Result low byte">MPYL - Multiplication Result low byte</a></li><li><a href="#mpym-multiplication-result-middle-byte-673" title="MPYM - Multiplication Result middle byte">MPYM - Multiplication Result middle byte</a></li><li><a href="#mpyh-multiplication-result-high-byte-674" title="MPYH - Multiplication Result high byte">MPYH - Multiplication Result high byte</a></li><li><a href="#slhv-software-latch-for-hv-counter-683" title="SLHV - Software Latch for H/V Counter">SLHV - Software Latch for H/V Counter</a></li><li><a href="#oamdataread*-data-for-oam-read-690" title="OAMDATAREAD* - Data for OAM read">OAMDATAREAD* - Data for OAM read</a></li><li><a href="#vmdatalread*-vram-data-read-low-byte-699" title="VMDATALREAD* - VRAM Data Read low byte">VMDATALREAD* - VRAM Data Read low byte</a></li><li><a href="#vmdatahread*-vram-data-read-high-byte-700" title="VMDATAHREAD* - VRAM Data Read high byte">VMDATAHREAD* - VRAM Data Read high byte</a></li><li><a href="#cgdataread*-cgram-data-read-711" title="CGDATAREAD* - CGRAM Data read">CGDATAREAD* - CGRAM Data read</a></li><li><a href="#ophct-horizontal-scanline-location-720" title="OPHCT - Horizontal Scanline Location">OPHCT - Horizontal Scanline Location</a></li><li><a href="#opvct-vertical-scanline-location-721" title="OPVCT - Vertical Scanline Location">OPVCT - Vertical Scanline Location</a></li><li><a href="#stat77-ppu-status-flag-and-version-731" title="STAT77 - PPU Status Flag and Version">STAT77 - PPU Status Flag and Version</a></li><li><a href="#stat78-ppu-status-flag-and-version-748" title="STAT78 - PPU Status Flag and Version">STAT78 - PPU Status Flag and Version</a></li><li><a href="#apuio0-apu-io-register-0-766" title="APUIO0 - APU I/O register 0">APUIO0 - APU I/O register 0</a></li><li><a href="#apuio1-apu-io-register-1-767" title="APUIO1 - APU I/O register 1">APUIO1 - APU I/O register 1</a></li><li><a href="#apuio2-apu-io-register-2-768" title="APUIO2 - APU I/O register 2">APUIO2 - APU I/O register 2</a></li><li><a href="#apuio3-apu-io-register-3-769" title="APUIO3 - APU I/O register 3">APUIO3 - APU I/O register 3</a></li><li><a href="#wmdata-wram-data-readwrite-781" title="WMDATA - WRAM Data read/write">WMDATA - WRAM Data read/write</a></li><li><a href="#wmaddl-wram-address-low-byte-789" title="WMADDL - WRAM Address low byte">WMADDL - WRAM Address low byte</a></li><li><a href="#wmaddm-wram-address-middle-byte-790" title="WMADDM - WRAM Address middle byte">WMADDM - WRAM Address middle byte</a></li><li><a href="#wmaddh-wram-address-high-bit-791" title="WMADDH - WRAM Address high bit">WMADDH - WRAM Address high bit</a></li><li><a href="#joyser0-nes-style-joypad-access-port-1-803" title="JOYSER0 - NES-style Joypad Access Port 1">JOYSER0 - NES-style Joypad Access Port 1</a></li><li><a href="#joyser1-nes-style-joypad-access-port-2-804" title="JOYSER1 - NES-style Joypad Access Port 2">JOYSER1 - NES-style Joypad Access Port 2</a></li><li><a href="#nmitimen-interrupt-enable-flags-828" title="NMITIMEN - Interrupt Enable Flags">NMITIMEN - Interrupt Enable Flags</a></li><li><a href="#wrio-programmable-io-port-(out-port)-848" title="WRIO - Programmable I/O port (out-port)">WRIO - Programmable I/O port (out-port)</a></li><li><a href="#wrmpya-multiplicand-a-857" title="WRMPYA - Multiplicand A">WRMPYA - Multiplicand A</a></li><li><a href="#wrmpyb-multiplicand-b-858" title="WRMPYB - Multiplicand B">WRMPYB - Multiplicand B</a></li><li><a href="#wrdivl-dividend-c-low-byte-868" title="WRDIVL - Dividend C low byte">WRDIVL - Dividend C low byte</a></li><li><a href="#wrdivh-dividend-c-high-byte-869" title="WRDIVH - Dividend C high byte">WRDIVH - Dividend C high byte</a></li><li><a href="#wrdivb-divisor-b-870" title="WRDIVB - Divisor B">WRDIVB - Divisor B</a></li><li><a href="#htimel-h-timer-low-byte-882" title="HTIMEL - H Timer low byte">HTIMEL - H Timer low byte</a></li><li><a href="#htimeh-h-timer-high-byte-883" title="HTIMEH - H Timer high byte">HTIMEH - H Timer high byte</a></li><li><a href="#vtimel-v-timer-low-byte-893" title="VTIMEL - V Timer low byte">VTIMEL - V Timer low byte</a></li><li><a href="#vtimeh-v-timer-high-byte-894" title="VTIMEH - V Timer high byte">VTIMEH - V Timer high byte</a></li><li><a href="#mdmaen-dma-enable-904" title="MDMAEN - DMA Enable">MDMAEN - DMA Enable</a></li><li><a href="#hdmaen-hdma-enable-917" title="HDMAEN - HDMA Enable">HDMAEN - HDMA Enable</a></li><li><a href="#memsel-rom-access-speed-932" title="MEMSEL - ROM Access Speed">MEMSEL - ROM Access Speed</a></li><li><a href="#nmi-flag-and-5a22-version-942" title="NMI Flag and 5A22 Version">NMI Flag and 5A22 Version</a></li><li><a href="#timeup-irq-flag-957" title="TIMEUP - IRQ Flag">TIMEUP - IRQ Flag</a></li><li><a href="#hvbjoy-ppu-status-969" title="HVBJOY - PPU Status">HVBJOY - PPU Status</a></li><li><a href="#rdio-programmable-io-port-(in-port)-985" title="RDIO - Programmable I/O port (in-port)">RDIO - Programmable I/O port (in-port)</a></li><li><a href="#rddivl-quotient-of-divide-result-low-byte-994" title="RDDIVL - Quotient of Divide Result low byte">RDDIVL - Quotient of Divide Result low byte</a></li><li><a href="#rddivh-quotient-of-divide-result-high-byte-995" title="RDDIVH - Quotient of Divide Result high byte">RDDIVH - Quotient of Divide Result high byte</a></li><li><a href="#rdmpyl-multiplication-product-or-divide-remainder-low-byte-1007" title="RDMPYL - Multiplication Product or Divide Remainder low byte">RDMPYL - Multiplication Product or Divide Remainder low byte</a></li><li><a href="#rdmpyh-multiplication-product-or-divide-remainder-high-byte-1008" title="RDMPYH - Multiplication Product or Divide Remainder high byte">RDMPYH - Multiplication Product or Divide Remainder high byte</a></li><li><a href="#joy1l-controller-port-1-data1-register-low-byte-1018" title="JOY1L - Controller Port 1 Data1 Register low byte">JOY1L - Controller Port 1 Data1 Register low byte</a></li><li><a href="#joy1h-controller-port-1-data1-register-high-byte-1019" title="JOY1H - Controller Port 1 Data1 Register high byte">JOY1H - Controller Port 1 Data1 Register high byte</a></li><li><a href="#joy2l-controller-port-2-data1-register-low-byte-1020" title="JOY2L - Controller Port 2 Data1 Register low byte">JOY2L - Controller Port 2 Data1 Register low byte</a></li><li><a href="#joy2h-controller-port-2-data1-register-high-byte-1021" title="JOY2H - Controller Port 2 Data1 Register high byte">JOY2H - Controller Port 2 Data1 Register high byte</a></li><li><a href="#joy3l-controller-port-1-data2-register-low-byte-1022" title="JOY3L - Controller Port 1 Data2 Register low byte">JOY3L - Controller Port 1 Data2 Register low byte</a></li><li><a href="#joy3h-controller-port-1-data2-register-high-byte-1023" title="JOY3H - Controller Port 1 Data2 Register high byte">JOY3H - Controller Port 1 Data2 Register high byte</a></li><li><a href="#joy4l-controller-port-2-data2-register-low-byte-1024" title="JOY4L - Controller Port 2 Data2 Register low byte">JOY4L - Controller Port 2 Data2 Register low byte</a></li><li><a href="#joy4h-controller-port-2-data2-register-high-byte-1025" title="JOY4H - Controller Port 2 Data2 Register high byte">JOY4H - Controller Port 2 Data2 Register high byte</a></li><li><a href="#dmapx-dma-control-for-channel-x-(x0-7)-1044" title="DMAPx - DMA Control for Channel x (x=0-7)">DMAPx - DMA Control for Channel x (x=0-7)</a></li><li><a href="#bbadx-dma-destination-register-for-channel-x-(x0-7)-1076" title="BBADx - DMA Destination Register for Channel x (x=0-7)">BBADx - DMA Destination Register for Channel x (x=0-7)</a></li><li><a href="#a1txl-dma-source-address-for-channel-x-low-byte-(x0-7)-1086" title="A1TxL - DMA Source Address for Channel x low byte (x=0-7)">A1TxL - DMA Source Address for Channel x low byte (x=0-7)</a></li><li><a href="#a1txh-dma-source-address-for-channel-x-high-byte-(x0-7)-1087" title="A1TxH - DMA Source Address for Channel x high byte (x=0-7)">A1TxH - DMA Source Address for Channel x high byte (x=0-7)</a></li><li><a href="#a1bx-dma-source-address-for-channel-x-bank-byte-(x0-7)-1088" title="A1Bx - DMA Source Address for Channel x bank byte (x=0-7)">A1Bx - DMA Source Address for Channel x bank byte (x=0-7)</a></li><li><a href="#dasxl-dma-sizehdma-indirect-address-low-byte-(x0-7)-1101" title="DASxL - DMA Size/HDMA Indirect Address low byte (x=0-7)">DASxL - DMA Size/HDMA Indirect Address low byte (x=0-7)</a></li><li><a href="#dasxh-dma-sizehdma-indirect-address-high-byte-(x0-7)-1102" title="DASxH - DMA Size/HDMA Indirect Address high byte (x=0-7)">DASxH - DMA Size/HDMA Indirect Address high byte (x=0-7)</a></li><li><a href="#dasbx-hdma-indirect-address-bank-byte-(x0-7)-1103" title="DASBx - HDMA Indirect Address bank byte (x=0-7)">DASBx - HDMA Indirect Address bank byte (x=0-7)</a></li><li><a href="#a2axl-hdma-table-address-low-byte-(x0-7)-1117" title="A2AxL - HDMA Table Address low byte (x=0-7)">A2AxL - HDMA Table Address low byte (x=0-7)</a></li><li><a href="#a2axh-hdma-table-address-high-byte-(x0-7)-1118" title="A2AxH - HDMA Table Address high byte (x=0-7)">A2AxH - HDMA Table Address high byte (x=0-7)</a></li><li><a href="#nltrx-hdma-line-counter-(x0-7)-1129" title="NLTRx - HDMA Line Counter (x=0-7)">NLTRx - HDMA Line Counter (x=0-7)</a></li><li><a href="#x-unknown-(x0-7)-1145" title="????x - Unknown (x=0-7)">????x - Unknown (x=0-7)</a></li><li><a href="#x-unknown-(x0-7)-1146" title="????x - Unknown (x=0-7)">????x - Unknown (x=0-7)</a></li></ul></li></ul></nav>        <article><p></p>
+<h2 id="address-bus-b-registers-1">Address Bus B Registers</h2>
+<p><strong>TODO: note on fast access time</strong></p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Address</th>
+<th>Name</th>
+<th>Style</th>
+<th>Access</th>
+<th>Timing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Screen Display Register</td>
+<td><code>$2100</code></td>
+<td>INIDISP</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Object Size and Character Size Register</td>
+<td><code>$2101</code></td>
+<td>OBSEL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>OAM Address Registers (Low)</td>
+<td><code>$2102</code></td>
+<td>OAMADDL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>OAM Address Registers (High)</td>
+<td><code>$2103</code></td>
+<td>OAMADDH</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>OAM Data Write Register</td>
+<td><code>$2104</code></td>
+<td>OAMDATA</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Mode and Character Size Register</td>
+<td><code>$2105</code></td>
+<td>BGMODE</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Mosaic Register</td>
+<td><code>$2106</code></td>
+<td>MOSAIC</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Tilemap Address Registers (BG1)</td>
+<td><code>$2107</code></td>
+<td>BG1SC</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Tilemap Address Registers (BG2)</td>
+<td><code>$2108</code></td>
+<td>BG2SC</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Tilemap Address Registers (BG3)</td>
+<td><code>$2109</code></td>
+<td>BG3SC</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Tilemap Address Registers (BG4)</td>
+<td><code>$210A</code></td>
+<td>BG4SC</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Character Address Registers (BG1&amp;2)</td>
+<td><code>$210B</code></td>
+<td>BG12NBA</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Character Address Registers (BG3&amp;4)</td>
+<td><code>$210C</code></td>
+<td>BG34NBA</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG1)</td>
+<td><code>$210D</code></td>
+<td>BG1HOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG1)</td>
+<td><code>$210E</code></td>
+<td>BG1VOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG2)</td>
+<td><code>$210F</code></td>
+<td>BG2HOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG2)</td>
+<td><code>$2110</code></td>
+<td>BG2VOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG3)</td>
+<td><code>$2111</code></td>
+<td>BG3HOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG3)</td>
+<td><code>$2112</code></td>
+<td>BG3VOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG4)</td>
+<td><code>$2113</code></td>
+<td>BG4HOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>BG Scroll Registers (BG4)</td>
+<td><code>$2114</code></td>
+<td>BG4VOFS</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Video Port Control Register</td>
+<td><code>$2115</code></td>
+<td>VMAIN</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>VRAM Address Registers (Low)</td>
+<td><code>$2116</code></td>
+<td>VMADDL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>VRAM Address Registers (High)</td>
+<td><code>$2117</code></td>
+<td>VMADDH</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>VRAM Data Write Registers (Low)</td>
+<td><code>$2118</code></td>
+<td>VMDATAL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>VRAM Data Write Registers (High)</td>
+<td><code>$2119</code></td>
+<td>VMDATAH</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Settings Register</td>
+<td><code>$211A</code></td>
+<td>M7SEL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Matrix Registers</td>
+<td><code>$211B</code></td>
+<td>M7A</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Matrix Registers</td>
+<td><code>$211C</code></td>
+<td>M7B</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Matrix Registers</td>
+<td><code>$211D</code></td>
+<td>M7C</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Matrix Registers</td>
+<td><code>$211E</code></td>
+<td>M7D</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Matrix Registers</td>
+<td><code>$211F</code></td>
+<td>M7X</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Mode 7 Matrix Registers</td>
+<td><code>$2120</code></td>
+<td>M7Y</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>CGRAM Address Register</td>
+<td><code>$2121</code></td>
+<td>CGADD</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>CGRAM Data Write Register</td>
+<td><code>$2122</code></td>
+<td>CGDATA</td>
+<td>dual</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Settings Registers</td>
+<td><code>$2123</code></td>
+<td>W12SEL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Settings Registers</td>
+<td><code>$2124</code></td>
+<td>W34SEL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Settings Registers</td>
+<td><code>$2125</code></td>
+<td>WOBJSEL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Position Registers (WH0)</td>
+<td><code>$2126</code></td>
+<td>WH0</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Position Registers (WH1)</td>
+<td><code>$2127</code></td>
+<td>WH1</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Position Registers (WH2)</td>
+<td><code>$2128</code></td>
+<td>WH2</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Position Registers (WH3)</td>
+<td><code>$2129</code></td>
+<td>WH3</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Logic registers (BG)</td>
+<td><code>$212A</code></td>
+<td>WBGLOG</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Logic registers (OBJ)</td>
+<td><code>$212B</code></td>
+<td>WOBJLOG</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Screen Destination Registers</td>
+<td><code>$212C</code></td>
+<td>TM</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Screen Destination Registers</td>
+<td><code>$212D</code></td>
+<td>TS</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Destination Registers</td>
+<td><code>$212E</code></td>
+<td>TMW</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Window Mask Destination Registers</td>
+<td><code>$212F</code></td>
+<td>TSW</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Color Math Registers</td>
+<td><code>$2130</code></td>
+<td>CGWSEL</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Color Math Registers</td>
+<td><code>$2131</code></td>
+<td>CGADSUB</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Color Math Registers</td>
+<td><code>$2132</code></td>
+<td>COLDATA</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Screen Mode Select Register</td>
+<td><code>$2133</code></td>
+<td>SETINI</td>
+<td>single</td>
+<td>write</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Multiplication Result Registers</td>
+<td><code>$2134</code></td>
+<td>MPYL</td>
+<td>single</td>
+<td>read</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Multiplication Result Registers</td>
+<td><code>$2135</code></td>
+<td>MPYM</td>
+<td>single</td>
+<td>read</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Multiplication Result Registers</td>
+<td><code>$2136</code></td>
+<td>MPYH</td>
+<td>single</td>
+<td>read</td>
+<td>f-blank, v-blank, h-blank</td>
+</tr>
+<tr>
+<td>Software Latch Register</td>
+<td><code>$2137</code></td>
+<td>SLHV</td>
+<td>single</td>
+<td></td>
+<td>any time</td>
+</tr>
+<tr>
+<td>OAM Data Read Register</td>
+<td><code>$2138</code></td>
+<td>OAMDATAREAD</td>
+<td>dual</td>
+<td>read</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>VRAM Data Read Register (Low)</td>
+<td><code>$2139</code></td>
+<td>VMDATALREAD</td>
+<td>single</td>
+<td>read</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>VRAM Data Read Register (High)</td>
+<td><code>$213A</code></td>
+<td>VMDATAHREAD</td>
+<td>single</td>
+<td>read</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>CGRAM Data Read Register</td>
+<td><code>$213B</code></td>
+<td>CGDATAREAD</td>
+<td>dual</td>
+<td>read</td>
+<td>f-blank, v-blank</td>
+</tr>
+<tr>
+<td>Scanline Location Registers (Horizontal)</td>
+<td><code>$213C</code></td>
+<td>OPHCT</td>
+<td>dual</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Scanline Location Registers (Vertical)</td>
+<td><code>$213D</code></td>
+<td>OPVCT</td>
+<td>dual</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>PPU Status Register</td>
+<td><code>$213E</code></td>
+<td>STAT77</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>PPU Status Register</td>
+<td><code>$213F</code></td>
+<td>STAT78</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>APU IO Registers</td>
+<td><code>$2140</code></td>
+<td>APUIO0</td>
+<td>single</td>
+<td>both</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>APU IO Registers</td>
+<td><code>$2141</code></td>
+<td>APUIO1</td>
+<td>single</td>
+<td>both</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>APU IO Registers</td>
+<td><code>$2142</code></td>
+<td>APUIO2</td>
+<td>single</td>
+<td>both</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>APU IO Registers</td>
+<td><code>$2143</code></td>
+<td>APUIO3</td>
+<td>single</td>
+<td>both</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>WRAM Data Register</td>
+<td><code>$2180</code></td>
+<td>WMDATA</td>
+<td>single</td>
+<td>both</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>WRAM Address Registers</td>
+<td><code>$2181</code></td>
+<td>WMADDL</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>WRAM Address Registers</td>
+<td><code>$2182</code></td>
+<td>WMADDM</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>WRAM Address Registers</td>
+<td><code>$2183</code></td>
+<td>WMADDH</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="old-style-joypad-registers-80">Old Style Joypad Registers</h2>
+<p><strong>TODO: note on extra slow access time</strong></p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Address</th>
+<th>Name</th>
+<th>Style</th>
+<th>Access</th>
+<th>Timing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Old Style Joypad Registers</td>
+<td><code>$4016</code></td>
+<td>JOYSER0</td>
+<td>single (write)</td>
+<td>read/write</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Old Style Joypad Registers</td>
+<td><code>$4017</code></td>
+<td>JOYSER1</td>
+<td>many (read)</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+</tbody>
+</table>
+<h2 id="internal-cpu-registers-88">Internal CPU Registers</h2>
+<p><strong>TODO: note on fast access time</strong></p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Address</th>
+<th>Name</th>
+<th>Style</th>
+<th>Access</th>
+<th>Timing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interrupt Enable Register</td>
+<td><code>$4200</code></td>
+<td>NMITIMEN</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>IO Port Write Register</td>
+<td><code>$4201</code></td>
+<td>WRIO</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Multiplicand Registers</td>
+<td><code>$4202</code></td>
+<td>WRMPYA</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Multiplicand Registers</td>
+<td><code>$4203</code></td>
+<td>WRMPYB</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Divisor &amp; Dividend Registers</td>
+<td><code>$4204</code></td>
+<td>WRDIVL</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Divisor &amp; Dividend Registers</td>
+<td><code>$4205</code></td>
+<td>WRDIVH</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Divisor &amp; Dividend Registers</td>
+<td><code>$4206</code></td>
+<td>WRDIVB</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>IRQ Timer Registers (Horizontal - Low)</td>
+<td><code>$4207</code></td>
+<td>HTIMEL</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>IRQ Timer Registers (Horizontal - High)</td>
+<td><code>$4208</code></td>
+<td>HTIMEH</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>IRQ Timer Registers (Vertical - Low)</td>
+<td><code>$4209</code></td>
+<td>VTIMEL</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>IRQ Timer Registers (Vertical - High)</td>
+<td><code>$420A</code></td>
+<td>VTIMEH</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>DMA Enable Register</td>
+<td><code>$420B</code></td>
+<td>MDMAEN</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>HDMA Enable Register</td>
+<td><code>$420C</code></td>
+<td>HDMAEN</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>ROM Speed Register</td>
+<td><code>$420D</code></td>
+<td>MEMSEL</td>
+<td>single</td>
+<td>write</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Interrupt Flag Registers</td>
+<td><code>$4210</code></td>
+<td>RDNMI</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Interrupt Flag Registers</td>
+<td><code>$4211</code></td>
+<td>TIMEUP</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>PPU Status Register</td>
+<td><code>$4212</code></td>
+<td>HVBJOY</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>IO Port Read Register</td>
+<td><code>$4213</code></td>
+<td>RDIO</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Multiplication Or Divide Result Registers (Low)</td>
+<td><code>$4214</code></td>
+<td>RDDIVL</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Multiplication Or Divide Result Registers (High)</td>
+<td><code>$4215</code></td>
+<td>RDDIVH</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Multiplication Or Divide Result Registers (Low)</td>
+<td><code>$4216</code></td>
+<td>RDMPYL</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Multiplication Or Divide Result Registers (High)</td>
+<td><code>$4217</code></td>
+<td>RDMPYH</td>
+<td>single</td>
+<td>read</td>
+<td>any time</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 1 - Low)</td>
+<td><code>$4218</code></td>
+<td>JOY1L</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 1 - High)</td>
+<td><code>$4219</code></td>
+<td>JOY1H</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 2 - Low)</td>
+<td><code>$421A</code></td>
+<td>JOY2L</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 2 - High)</td>
+<td><code>$421B</code></td>
+<td>JOY2H</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 3 - Low)</td>
+<td><code>$421C</code></td>
+<td>JOY3L</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 3 - High)</td>
+<td><code>$421D</code></td>
+<td>JOY3H</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 4 - Low)</td>
+<td><code>$421E</code></td>
+<td>JOY4L</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+<tr>
+<td>Controller Port Data Registers (Pad 4 - High)</td>
+<td><code>$421F</code></td>
+<td>JOY4H</td>
+<td>single</td>
+<td>read</td>
+<td>any time that is not auto-joypad</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dma-registers-124">DMA Registers</h3>
+<p>These registers can be read or written at any time.
+<strong>TODO: write something about fast access time.</strong></p>
+<p>The X's in the address of the registers are to be replaced by the 
+chosen DMA/HDMA channel (0 through 7). The destination register of DMA 
+channel 3 would then be $43<em><strong>3</strong></em>1.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Address</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DMA Control Register</td>
+<td><code>$43x0</code></td>
+<td>DMAPx</td>
+</tr>
+<tr>
+<td>DMA Destination Register</td>
+<td><code>$43x1</code></td>
+<td>BBADx</td>
+</tr>
+<tr>
+<td>DMA Source Address Registers</td>
+<td><code>$43x2</code></td>
+<td>A1TxL</td>
+</tr>
+<tr>
+<td>DMA Source Address Registers</td>
+<td><code>$43x3</code></td>
+<td>A1TxH</td>
+</tr>
+<tr>
+<td>DMA Source Address Registers</td>
+<td><code>$43x4</code></td>
+<td>A1Bx</td>
+</tr>
+<tr>
+<td>DMA Size Registers (Low)</td>
+<td><code>$43x5</code></td>
+<td>DASxL</td>
+</tr>
+<tr>
+<td>DMA Size Registers (High)</td>
+<td><code>$43x6</code></td>
+<td>DASxH</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hdma-registers-141">HDMA Registers</h2>
+<p>These registers can be read or written at any time.
+<strong>TODO: write something about fast access time.</strong></p>
+<p>The X's in the address of the registers are to be replaced by the 
+chosen DMA/HDMA channel (0 through 7). The destination register of HDMA 
+channel 3 would then be $43<em><strong>3</strong></em>1.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Address</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDMA Control Register</td>
+<td><code>$43x0</code></td>
+<td>DMAPx</td>
+</tr>
+<tr>
+<td>HDMA Destination Register</td>
+<td><code>$43x1</code></td>
+<td>BBADx</td>
+</tr>
+<tr>
+<td>HDMA Table Address Registers</td>
+<td><code>$43x2</code></td>
+<td>A1TxL</td>
+</tr>
+<tr>
+<td>HDMA Table Address Registers</td>
+<td><code>$43x3</code></td>
+<td>A1TxH</td>
+</tr>
+<tr>
+<td>HDMA Table Address Registers</td>
+<td><code>$43x4</code></td>
+<td>A1Bx</td>
+</tr>
+<tr>
+<td>HDMA Indirect Address Registers</td>
+<td><code>$43x5</code></td>
+<td>DASxL</td>
+</tr>
+<tr>
+<td>HDMA Indirect Address Registers</td>
+<td><code>$43x6</code></td>
+<td>DASxH</td>
+</tr>
+<tr>
+<td>HDMA Indirect Address Registers</td>
+<td><code>$43x7</code></td>
+<td>DASBx</td>
+</tr>
+<tr>
+<td>HDMA Mid Frame Table Address Registers (Low)</td>
+<td><code>$43x8</code></td>
+<td>A2AxL</td>
+</tr>
+<tr>
+<td>HDMA Mid Frame Table Address Registers (High)</td>
+<td><code>$43x9</code></td>
+<td>A2AxH</td>
+</tr>
+<tr>
+<td>HDMA Line Counter Register</td>
+<td><code>$43xA</code></td>
+<td>NTLRX</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;hr/&gt;</p>
+<h2 id="register-explanations-163">Register Explanations</h2>
+<p>The flags are:</p>
+<pre><code>rw?fvha
+||||||+--&gt; '+' if it can be read/written at any time, '-' otherwise
+|||||+---&gt; '+' if it can be read/written during H-Blank
+||||+----&gt; '+' if it can be read/written during V-Blank
+|||+-----&gt; '+' if it can be read/written during force-blank
+||+------&gt; Read/Write style: 'b'     =&gt; byte
+||                           'h'/'l' =&gt; read/write high/low byte of a word
+||                           'w'     =&gt; word read/write twice low then high
+|+-------&gt; 'w' if the register is writable for an effect
++--------&gt; 'r' if the register is readable for a value or effect (i.e. not [open bus](/open-bus)).
+</code></pre>
+<p>To find the entry for a particular register, search for the register 
+number (i.e. '2100') at the very beginning of the line. Note that the 
+DMA registers are combined, so e.g. to find $4300, $4310, $4320, $4330, 
+$4340, $4350, $4360, or $4370 you'd search for '43x0'.</p>
+<p>For most registers (and most undefined bits of readable registers), 
+the returned value is Open Bus, that is the last value read over the 
+main bus from the ROM (typically part of the opcode arguments or the 
+indirect base address).</p>
+<p>Registers matching $21x4-6 or $21x8-A (where x is 0-2) return the 
+last value read from any of the PPU1 registers $2134-6, $2138-A, or 
+$213E. This is known as PPU1 Open Bus. Similarly, PPU2 Open Bus involves
+ reading registers $213B-D or $213F (NOT $21xB-D though).</p>
+<p>Note that it may be possible to write registers anytime even if marked '-', but until we have proof '-' is a better guess.</p>
+<h3 id="inidisp-screen-display-186">INIDISP - Screen Display</h3>
+<pre><code>$2100  wb++++
+         x---bbbb
+         x        = Force blank on when set.
+             bbbb = Screen brightness, F=max, 0="off".
+</code></pre>
+<p>Note that force blank CAN be disabled mid-scanline. However, this can
+ result in glitched graphics on that scanline, as the internal rendering
+ buffers will not have been updated during force blank. Current theory 
+is that BGs will be glitched for a few tiles (depending on how far in 
+advance the PPU operates), and OBJ will be glitched for the entire 
+scanline.
+Also, writing this register on the first line of V-Blank (225 or 240, 
+depending on overscan) when force blank is currently active causes the 
+OAM Address Reset to occur.</p>
+<h3 id="obsel-object-size-and-character-address-196">OBSEL - Object Size and Character Address</h3>
+<pre><code>$2101  wb++?- 
+         sssnnbbb
+         sss       = Object size:
+               000 =  8x8  and 16x16 sprites
+               001 =  8x8  and 32x32 sprites
+               010 =  8x8  and 64x64 sprites
+               011 = 16x16 and 32x32 sprites
+               100 = 16x16 and 64x64 sprites
+               101 = 32x32 and 64x64 sprites
+               110 = 16x32 and 32x64 sprites ('undocumented')
+               111 = 16x32 and 32x32 sprites ('undocumented')
+            nn     = Name Select
+              bbb  = Name Base Select (Addr&gt;&gt;14)
+</code></pre>
+<p>See the section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<h3 id="oamaddl-oam-address-low-byte-214">OAMADDL - OAM Address low byte</h3>
+<h3 id="oamaddh-oam-address-high-bit-and-obj-priority-215">OAMADDH - OAM Address high bit and Obj Priority</h3>
+<pre><code>$2102  wl++?-
+$2103  wh++?-
+        p------b aaaaaaaa
+        p                 = Obj Priority activation bit
+               b aaaaaaaa = OAM address
+</code></pre>
+<p>When Obj Priority activation bit is set, an Obj other than Sprite 0 may be given priority. See the section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<p>OAM address can be thought of in two ways, depending on your 
+conception of OAM. If you consider OAM as a 544-byte table, baaaaaaaa is
+ the word address into that table. If you consider OAM to be a 512-byte 
+table and a 32-byte table, b is the table selector and aaaaaaaa is the 
+word address in the table. See the section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<p>The internal OAM address is invalidated when scanlines are being 
+rendered. This invalidation is deterministic, but we do not know how it 
+is determined. Thus, the last value written to these registers is 
+reloaded into the internal OAM address at the beginning of V-Blank if 
+that occurs outside of a force-blank period. This is known as 'OAM 
+reset'. 'OAM reset' also occurs on certain writes to $2100.</p>
+<p>Writing to either $2102 or $2103 resets the entire internal OAM 
+Address to the values last written to this register. E.g., if you set 
+$104 to this register, write 4 bytes, then write $1 to $2103, the 
+internal OAM address will point to word 4, not word 6.</p>
+<h3 id="oamdata-data-for-oam-write-231">OAMDATA - Data for OAM write</h3>
+<pre><code>$2104  wb++--
+        dddddddd
+</code></pre>
+<p>Note that OAM writes are done in an odd manner, in particular the low
+ table of OAM is not affected until the high byte of a word is written 
+(however, the high table is affected immediately). Thus, if you set the 
+address, then alternate writes and reads, OAM will never be affected 
+until you reach the high table!</p>
+<p>Similarly, if you set the address to 0, then write 1, 2, read, then 
+write 3, OAM will end up as "01 02 01 03", rather than "01 02 xx 03" as 
+you might expect.</p>
+<p>Technically, this register CAN be written during H-blank (and 
+probably mid-scanline as well). However, due to OAM address invalidation
+ the actual OAM byte written will probably not be what you expect. Note 
+that writing during force-blank will only work as expected if that 
+force-blank was begun during V-Blank, or (probably) if $2102/3 have been
+ reset during that force-blank period.</p>
+<p>See the section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<h3 id="bgmode-bg-mode-and-character-size-244">BGMODE - BG Mode and Character Size</h3>
+<pre><code>$2105  wb+++-
+        DCBAemmm
+
+        A/B/C/D   = BG character size for BG1/BG2/BG3/BG4
+             mmm  = BG Mode
+            e     = Mode 1 BG3 priority bit
+            Mode     BG depth  OPT  Priorities
+                     1 2 3 4        Front -&gt; Back
+            -=-------=-=-=-=----=---============---
+             0       2 2 2 2    n    3AB2ab1CD0cd
+             1       4 4 2      n    3AB2ab1C 0c
+                        * if e set: C3AB2ab1  0c
+             2       4 4        y    3A 2B 1a 0b
+             3       8 4        n    3A 2B 1a 0b
+             4       8 2        y    3A 2B 1a 0b
+             5       4 2        n    3A 2B 1a 0b
+             6       4          y    3A 2  1a 0
+             7       8          n    3  2  1a 0
+             7+EXTBG 8 7        n    3  2B 1a 0b
+</code></pre>
+<p>If the BG character size for BG1/BG2/BG3/BG4 bit is set, then the BG 
+is made of 16x16 tiles. Otherwise, 8x8 tiles are used. However, note 
+that Modes 5 and 6 always use 16-pixel wide tiles, and Mode 7 always 
+uses 8x8 tiles. See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<p>"OPT" means "Offset-per-tile mode". For the priorities, numbers mean 
+sprites with that priority. Letters correspond to BGs (A=1, B=2, etc), 
+with upper/lower case indicating tile priority 1/0. See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<p>Mode 7's EXTBG mode allows you to enable BG2, which uses the same 
+tilemap and character data as BG1 but interprets bit 7 of the pixel data
+ as a priority bit. BG2 also has some oddness to do with some of the 
+per-BG registers below. See the Mode 7 section under <a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a> for details.</p>
+<h3 id="mosaic-screen-pixelation-272">MOSAIC - Screen Pixelation</h3>
+<pre><code>$2106  wb+++-
+        xxxxDCBA
+            A/B/C/D = Affect BG1/BG2/BG3/BG4
+        xxxx        = pixel size, 0=1x1, F=16x16
+</code></pre>
+<p>The mosaic filter goes over the BG and covers each x-by-x square with
+ the upper-left pixel of that square, with the top of the first row of 
+squares on the 'starting scanline'. If this register is set during the 
+frame, the 'starting scanline' is the current scanline, otherwise it is 
+the first visible scanline of the frame. I.e. if even scanlines are 
+completely red and odd scanlines are completely blue, setting the xxxx=1
+ mid-frame will make the rest of the screen either completely red or 
+completely blue depending on whether you set xxxx on an even or an odd 
+scanline.</p>
+<p>XXX: It seems that writing the same value to this register does not 
+reset the 'starting scanline', but which changes do reset it?</p>
+<p>Note that mosaic is applied after scrolling, but before any clip 
+windows, color windows, or math. So the XxX block can be partially 
+clipped, and it can be mathed as normal with a non-mosaiced BG. But 
+scrolling can't make it partially one color and partially another.</p>
+<p>Modes 5-6 should 'double' the expansion factor to expand half-pixels.
+ This actually makes xxxx=0 have a visible effect, since the even 
+half-pixels (usually on the subscreen) hide the odd half-pixels. The 
+same thing happens vertically with interlace mode.</p>
+<p>Mode 7, of course, is weird. BG1 mosaics about like normal, as long 
+as you remember that the Mode 7 transformations have no effect on the 
+XxX blocks. BG2 uses bit A to control 'vertical mosaic' and bit B to 
+control 'horizontal mosaic', so you could be expanding over 1xX, Xx1, or
+ XxX blocks. This can get really interesting as BG1 still uses bit A as 
+normal, so you could have the BG1 pixels expanded XxX with high-priority
+ BG2 pixels expanded 1xX on top of them.</p>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="bg1sc-bg1-tilemap-address-and-size-291">BG1SC - BG1 Tilemap Address and Size</h3>
+<h3 id="bg2sc-bg2-tilemap-address-and-size-292">BG2SC - BG2 Tilemap Address and Size</h3>
+<h3 id="bg3sc-bg3-tilemap-address-and-size-293">BG3SC - BG3 Tilemap Address and Size</h3>
+<h3 id="bg4sc-bg4-tilemap-address-and-size-294">BG4SC - BG4 Tilemap Address and Size</h3>
+<pre><code>$2107  wb++?-
+$2108  wb++?-
+$2109  wb++?-
+$210A  wb++?-
+        aaaaaayx
+        aaaaaa      = Tilemap address in VRAM (Addr&gt;&gt;10)
+               x    = Tilemap horizontal mirroring
+              y     = Tilemap vertical mirroring
+</code></pre>
+<p>All tilemaps are 32x32 tiles. If x and y are both unset, there is one
+ tilemap at Addr. If x is set, a second tilemap follows the first that 
+should be considered "to the right of" the first. If y is set, a second 
+tilemap follows the first that should be considered "below" the first. 
+If both are set, then a second follows "to the right", then a third 
+"below", and a fourth "below and to the right".</p>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for more details.</p>
+<h3 id="bg12nba-bg1-and-2-chr-address-309">BG12NBA - BG1 and 2 Chr Address</h3>
+<h3 id="bg34nba-bg3-and-4-chr-address-310">BG34NBA - BG3 and 4 Chr Address</h3>
+<pre><code>$210B  wb++?-
+$210C  wb++?-
+        bbbbaaaa
+            aaaa = Base address for BG1/3 (Addr&gt;&gt;12)
+        bbbb     = Base address for BG2/4 (Addr&gt;&gt;12)
+</code></pre>
+<p>Simply spoken: Saving <code>"$63"</code> into <code>$210B</code> makes the PPU look for the Tileset for <code>BG2</code> at <code>$6000</code> in the <code>VRAM</code> and for <code>BG1</code> at <code>$3000</code>.</p>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" for details.</p>
+<h3 id="bg1hofs-bg1-horizontal-scroll-323">BG1HOFS - BG1 Horizontal Scroll</h3>
+<h3 id="m7hofs-mode-7-bg-horizontal-scroll-324">M7HOFS  - Mode 7 BG Horizontal Scroll</h3>
+<h3 id="bg1vofs-bg1-vertical-scroll-325">BG1VOFS - BG1 Vertical Scroll</h3>
+<h3 id="m7vofs-mode-7-bg-vertical-scroll-326">M7VOFS  - Mode 7 BG Vertical Scroll</h3>
+<pre><code>$210D  ww+++-
+       ww+++-
+$210E  ww+++-
+       ww+++-
+        ------xx xxxxxxxx
+        ---mmmmm mmmmmmmm
+
+              x = The BG offset, 10 bits.
+           m    = The Mode 7 BG offset, 13 bits two's-complement signed.
+</code></pre>
+<p>These are actually two registers in one (or would that be "4 
+registers in 2"?). Anyway, writing $210D will write both BG1HOFS which 
+works exactly like the rest of the BGnxOFS registers below 
+($210F-$2114), and M7HOFS which works with the M7* registers 
+($211B-$2120) instead.</p>
+<p>Modes 0-6 use BG1xOFS and ignore M7xOFS, while Mode 7 uses M7xOFS and
+ ignores BG1HOFS. See the appropriate sections below for details, and 
+note the different formulas for BG1HOFS versus M7HOFS.</p>
+<h3 id="bg2hofs-bg2-horizontal-scroll-343">BG2HOFS - BG2 Horizontal Scroll</h3>
+<h3 id="bg2vofs-bg2-vertical-scroll-344">BG2VOFS - BG2 Vertical Scroll</h3>
+<h3 id="bg3hofs-bg3-horizontal-scroll-345">BG3HOFS - BG3 Horizontal Scroll</h3>
+<h3 id="bg3vofs-bg3-vertical-scroll-346">BG3VOFS - BG3 Vertical Scroll</h3>
+<h3 id="bg4hofs-bg4-horizontal-scroll-347">BG4HOFS - BG4 Horizontal Scroll</h3>
+<h3 id="bg4vofs-bg4-vertical-scroll-348">BG4VOFS - BG4 Vertical Scroll</h3>
+<pre><code>$210F  ww+++-
+$2110  ww+++-
+$2111  ww+++-
+$2112  ww+++-
+$2113  ww+++-
+$2114  ww+++-
+        ------xx xxxxxxxx
+</code></pre>
+<p>Note that these are "write twice" registers, first the low byte is 
+written then the high. Current theory is that writes to the register 
+work like this:</p>
+<pre><code>BGnHOFS = (Current&lt;&lt;8) | (Prev1&amp;~7) | (Prev2&amp;7);
+Prev1 = Current;
+Prev2 = Current;
+or
+BGnVOFS = (Current&lt;&lt;8) | Prev1;
+Prev1 = Current;
+</code></pre>
+<p>Note that there is only one Prev1 shared by all eight BGnxOFS 
+registers, and only one Prev2 shared by the four BGnHOFS registers. 
+These are NOT shared with the M7* registers (not even M7xOFS and 
+BG1xOFS).</p>
+<pre><code>x = The BG offset, at most 10 bits (some modes effectively use as few as 8).
+</code></pre>
+<p>Note that all BGs wrap if you try to go past their edges. Thus, the 
+maximum offset value in BG Modes 0-6 is 1023, since you have at most 64 
+tiles (if x/y of BGnSC is set) of 16 pixels each (if the appropriate bit
+ of BGMODE is set).</p>
+<p>Horizontal scrolling scrolls in units of full pixels no matter if 
+we're rendering a 256-pixel wide screen or a 512-half-pixel wide screen.
+ However, vertical scrolling will move in half-line increments if 
+interlace mode is active.</p>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="vmain-video-port-control-378">VMAIN - Video Port Control</h3>
+<pre><code>$2115  wb++?-
+        i---mmii
+        i          = Address increment mode^:
+                     0 =&gt; increment after writing $2118/reading $2139
+                     1 =&gt; increment after writing $2119/reading $213A
+              ii   = Address increment amount
+                     00 = Normal increment by 1
+                     01 = Increment by 32
+                     1- = Increment by 128
+            mm     = Address remapping
+                     00 = No remapping
+                     01 = Remap addressing aaaaaaaaBBBccccc =&gt; aaaaaaaacccccBBB
+                     10 = Remap addressing aaaaaaaBBBcccccc =&gt; aaaaaaaccccccBBB
+                     11 = Remap addressing aaaaaaBBBccccccc =&gt; aaaaaacccccccBBB
+</code></pre>
+<p>^:Note that a word write stores low first, then high. Thus, if you're
+ storing a word value to $2118/9, you'll probably want to set 1 here.</p>
+<p>The "remap" modes basically implement address translation. If $2116/7
+ are set to #$0003, then word address #$0018 will be written instead, 
+and $2116/7 will be incremented to $0004.</p>
+<h3 id="vmaddl-vram-address-low-byte-399">VMADDL - VRAM Address low byte</h3>
+<h3 id="vmaddh-vram-address-high-byte-400">VMADDH - VRAM Address high byte</h3>
+<pre><code>$2116  wl++?-
+$2117  wh++?-
+        aaaaaaaa aaaaaaaa
+</code></pre>
+<p>This sets the address for $2118/9 and $2139/a. Note that this is a word address, not a byte address!
+See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" and "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<h3 id="vmdatal-vram-data-write-low-byte-409">VMDATAL - VRAM Data Write low byte</h3>
+<h3 id="vmdatah-vram-data-write-high-byte-410">VMDATAH - VRAM Data Write high byte</h3>
+<pre><code>$2118  wl++--
+$2119  wh++--
+        xxxxxxxx xxxxxxxx
+</code></pre>
+<p>This writes data to VRAM. The writes take effect immediately(?), even
+ if no increment is performed. The address is incremented when one of 
+the two bytes is written; which one depends on the setting of bit 7 of 
+register $2115. Keep in mind the address translation bits of $2115 as 
+well.
+The interaction between these registers and $2139/a is unknown.
+See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" and "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<h3 id="m7sel-mode-7-settings-420">M7SEL - Mode 7 Settings</h3>
+<pre><code>$211A  wb++?-
+        rc----yx
+        r        = Playing field size^
+         c       = Empty space fill, when bit 7 is set:
+                   0 = Transparent.
+                   1 = Fill with character 0. Note that the fill is matrix transformed like all other Mode 7 tiles.
+             x/y = Horizontal/Vertical mirroring. If the bit is set, flip the 256x256 pixel 'screen' in that direction.
+</code></pre>
+<p>^When clear, the playing field is 1024x1024 pixels (so the tilemap 
+completely fills it). When set, the playing field is much larger, and 
+the 'empty space' fill is controlled by bit 6.
+See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="m7a-mode-7-matrix-a-(also-used-with-dollar21346)-433">M7A - Mode 7 Matrix A (also used with $2134/6)</h3>
+<h3 id="m7b-mode-7-matrix-b-(also-used-with-dollar21346)-434">M7B - Mode 7 Matrix B (also used with $2134/6)</h3>
+<h3 id="m7c-mode-7-matrix-c-435">M7C - Mode 7 Matrix C</h3>
+<h3 id="m7d-mode-7-matrix-d-436">M7D - Mode 7 Matrix D</h3>
+<pre><code>$211B  ww+++-
+$211C  ww+++-
+$211D  ww+++-
+$211E  ww+++-
+        aaaaaaaa aaaaaaaa
+</code></pre>
+<p>Note that these are "write twice" registers, first the low byte is 
+written then the high. Current theory is that writes to the register 
+work like this:</p>
+<pre><code>Reg = (Current&lt;&lt;8) | Prev;
+Prev = Current;
+</code></pre>
+<p>Note that there is only one Prev shared by all these registers. This 
+Prev is NOT shared with the BGnxOFS registers, but it IS shared with the
+ M7xOFS registers.
+These set the matrix parameters for Mode 7. The values are an 8-bit 
+fixed point, i.e. the value should be divided by 256.0 when used in 
+calculations. See below for more explanation.
+The product <code>A*(B&gt;&gt;8)</code> may be read from registers $2134/6. There is supposedly no important delay. It may not be operative during Mode 7 rendering.
+See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="m7x-mode-7-center-x-454">M7X - Mode 7 Center X</h3>
+<h3 id="m7y-mode-7-center-y-455">M7Y - Mode 7 Center Y</h3>
+<pre><code>$211F  ww+++-
+$2120  ww+++-
+        ---xxxxx xxxxxxxx
+</code></pre>
+<p>Note that these are "write twice" registers, like the other M7* 
+registers. See above for the write semantics. The value is 13 bit 
+two's-complement signed.
+The matrix transformation formula is:</p>
+<pre><code>[ X ]   [ A B ]   [ SX + M7HOFS - CX ]   [ CX ]
+[   ] = [     ] * [                  ] + [    ]
+[ Y ]   [ C D ]   [ SY + M7VOFS - CY ]   [ CY ]
+</code></pre>
+<p>Note: SX/SY are screen coordinates. X/Y are coordinates in the 
+playing field from which the pixel is taken. If $211A bit 7 is clear, 
+the result is then restricted to <code>0&lt;=X&lt;=1023</code> and <code>0&lt;=Y&lt;=1023</code>.
+ If $211A bits 6 and 7 are both set and X or Y is less than 0 or greater
+ than 1023, use the low 3 bits of each to choose the pixel from 
+character 0.
+The bit-accurate formula seems to be something along the lines of:</p>
+<pre><code>  #define CLIP(a) (((a)&amp;0x2000)?((a)|~0x3FF):((a)&amp;0x3FF))
+
+  X[0,y] = ((A*CLIP(HOFS-CX))&amp;~63)
+         + ((B*y)&amp;~63) + ((B*CLIP(VOFS-CY))&amp;~63)
+         + (CX&lt;&lt;8)
+  Y[0,y] = ((C*CLIP(HOFS-CX))&amp;~63)
+         + ((D*y)&amp;~63) + ((D*CLIP(VOFS-CY))&amp;~63)
+         + (CY&lt;&lt;8)
+
+  X[x,y] = X[x-1,y] + A
+  Y[x,y] = Y[x-1,y] + C
+
+(In all cases, X[] and Y[] are fixed point with 8 bits of fraction)
+</code></pre>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="cgadd-cgram-address-487">CGADD - CGRAM Address</h3>
+<pre><code>$2121  wb+++-
+        cccccccc
+</code></pre>
+<p>This sets the word address (i.e. color) which will be affected by $2122 and $213B.</p>
+<p>Writing "0" to $2121 will change the "currently selected color index"
+ used by $2122, to 0. Upon writing a color to $2122, the color will be 
+stored into the array index selected by $2121, which in this case would 
+be 0 - if you wrote 0 to $2121 before writing a color to $2122.</p>
+<p>Keep in mind the color index accessed by $2121 will <em>automatically</em>
+ increment by 1 after writing a color to $2122. This is an effect 
+generated by $2122 after being used in case you want to write specific 
+colors in a series.</p>
+<h3 id="cgdata-cgram-data-write-498">CGDATA - CGRAM Data write</h3>
+<pre><code>$2122  ww+++-
+        -bbbbbgg gggrrrrr
+</code></pre>
+<p>This writes to CGRAM, effectively setting the palette colors.
+Accesses to CGRAM are handled just like accesses to the low table of OAM, see $2104 for details.
+Note that the color values are stored in BGR order.</p>
+<h3 id="w12sel-window-mask-settings-for-bg1-and-bg2-507">W12SEL - Window Mask Settings for BG1 and BG2</h3>
+<h3 id="w34sel-window-mask-settings-for-bg3-and-bg4-508">W34SEL - Window Mask Settings for BG3 and BG4</h3>
+<h3 id="wobjsel-window-mask-settings-for-obj-and-color-window-509">WOBJSEL - Window Mask Settings for OBJ and Color Window</h3>
+<pre><code>$2123  wb+++-
+$2124  wb+++-
+$2125  wb+++-
+        ABCDabcd
+               d = Window 1 Inversion for BG1/BG3/OBJ
+              c  = Enable window 1 for BG1/BG3/OBJ
+             b   = Window 2 Inversion for BG1/BG3/OBJ
+            a    = Enable window 2 for BG1/BG3/OBJ
+           D     = Window 1 Inversion for BG2/BG4/Color^^
+          C      = Enable window 1 for BG2/BG4/Color^
+         B       = Window 2 Inversion for BG2/BG4/Color^^
+        A        = Enable window 2 for BG2/BG4/Color^
+</code></pre>
+<p>^When the bit is set, the corresponding window will affect the corresponding background (subject to the settings of $212E/F).</p>
+<p>^^When the bit is set, "W" should be replaced by "~W" (not-W) in the window combination formulate below.
+See the section "WINDOWS" below for more details.</p>
+<h3 id="wh0-window-1-left-position-530">WH0 - Window 1 Left Position</h3>
+<h3 id="wh1-window-1-right-position-531">WH1 - Window 1 Right Position</h3>
+<h3 id="wh2-window-2-left-position-532">WH2 - Window 2 Left Position</h3>
+<h3 id="wh3-window-2-right-position-533">WH3 - Window 2 Right Position</h3>
+<pre><code>$2126  wb+++-
+$2127  wb+++-
+$2128  wb+++-
+$2129  wb+++-
+        xxxxxxxx
+</code></pre>
+<p>These set the offset of the appropriate edge of the appropriate 
+window.
+Note that if the left edge is greater than the right edge, the window is
+ considered to have no range at all (and thus "W" always is false).
+See the section "WINDOWS" below for more details.</p>
+<h3 id="wbglog-window-mask-logic-for-bgs-545">WBGLOG - Window mask logic for BGs</h3>
+<h3 id="wobjlog-window-mask-logic-for-objs-and-color-window-546">WOBJLOG - Window mask logic for OBJs and Color Window</h3>
+<pre><code>$212A  wb+++- 
+        44332211
+$212B  wb+++- 
+        ----ccoo
+
+        44/33/22/11/oo/cc = Mask logic for BG1/BG2/BG3/BG4/OBJ/Color
+            This specified the window combination method, using standard boolean operators:
+              00 = OR
+              01 = AND
+              10 = XOR
+              11 = XNOR
+</code></pre>
+<p>Consider two variables, W1 and W2, which are true for pixels between 
+the appropriate left and right bounds as set in $2126-$2129 and false 
+otherwise. Then, you have the following possibilities: (replace "W#" 
+with "~W#", depending on the Inversion settings of $2123-$2125)
+Neither window enabled =&gt; nothing masked.
+One window enabled     =&gt; Either W1 or W2, as appropriate.
+Both windows enabled   =&gt; W1 op W2, where "op" is as above.
+Where the function is true, the BG will be masked.
+See the section "WINDOWS" below for more details.</p>
+<h3 id="tm-main-screen-designation-567">TM - Main Screen Designation</h3>
+<h3 id="ts-subscreen-designation-568">TS - Subscreen Designation</h3>
+<pre><code>$212C  wb+++-
+$212D  wb+++-
+        ---o4321
+
+        1/2/3/4/o = Enable BG1/BG2/BG3/BG4/OBJ for display on the main (or sub) screen.
+</code></pre>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="tmw-window-mask-designation-for-the-main-screen-578">TMW - Window Mask Designation for the Main Screen</h3>
+<h3 id="tsw-window-mask-designation-for-the-subscreen-579">TSW - Window Mask Designation for the Subscreen</h3>
+<pre><code>$212E  wb+++-
+$212F  wb+++-
+        ---o4321
+        1/2/3/4/o = Enable window masking for BG1/BG2/BG3/BG4/OBJ on the main (or sub) screen.
+</code></pre>
+<p>See the section "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" below for details.</p>
+<h3 id="cgwsel-color-addition-select-588">CGWSEL - Color Addition Select</h3>
+<pre><code>$2130  wb+++-
+        ccmm--sd
+        cc       = Clip colors to black before math
+                   00 =&gt; Never
+                   01 =&gt; Outside Color Window only
+                   10 =&gt; Inside Color Window only
+                   11 =&gt; Always
+          mm     = Prevent color math
+                   00 =&gt; Never
+                   01 =&gt; Outside Color Window only
+                   10 =&gt; Inside Color Window only
+                   11 =&gt; Always
+              s  = Add subscreen (instead of fixed color)
+               d = Direct color mode for 256-color BGs
+</code></pre>
+<p>See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>", "WINDOWS", and "RENDERING THE SCREEN" below for details.</p>
+<h3 id="cgadsub-color-math-designation-607">CGADSUB - Color math designation</h3>
+<pre><code>$2131  wb+++-
+        shbo4321
+        s             = Add/subtract select
+                        0 =&gt; Add the colors
+                        1 =&gt; Subtract the colors
+         h            = Half color math.^
+          4/3/2/1/o/b = Enable color math on BG1/BG2/BG3/BG4/OBJ/Backdrop ^^
+</code></pre>
+<p>^ When set, the result of the color math is divided by 2 (except when
+ $2130 bit 1 is set and the fixed color is used, or when color is 
+clipped).</p>
+<p>^^ Note that color math is only applied to objects that use palette entries 4-7
+See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>", "WINDOWS", and "RENDERING THE SCREEN" below for details.</p>
+<h3 id="coldata-fixed-color-data-622">COLDATA - Fixed Color Data</h3>
+<pre><code>$2132  wb+++-
+        bgrccccc
+        b/g/r    = Which color plane(s) to set the intensity for.
+           ccccc = Color intensity.
+</code></pre>
+<p>So basically, to set an orange you'd do something along the lines of:
+LDA #$3F
+STA $2132
+LDA #$4F
+STA $2132
+LDA #$80
+STA $2132</p>
+<p>See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" and "WINDOWS" below for details.</p>
+<h3 id="setini-screen-modevideo-select-639">SETINI - Screen Mode/Video Select</h3>
+<pre><code>$2133  wb+++-
+        se--poIi
+        s        = "External Sync".^
+         e       = Mode 7 EXTBG ("Extra BG").^^
+            p    = Enable pseudo-hires mode.^^^
+             o   = Overscan mode.^^^^
+              I  = OBJ Interlace.^^^^^
+               i = Screen interlace.^^^^^^
+</code></pre>
+<p>^Used for superimposing "sfx" graphics, whatever that means. Usually 
+0. Not much is known about this bit. Interestingly, the SPPU1 chip has a
+ pin named "EXTSYNC" (or not-EXTSYNC, since it has a bar over it) which 
+is tied to Vcc.</p>
+<p>^^When this bit is set, you may enable BG2 on Mode 7. BG2 uses the 
+same tile and character data as BG1, but interprets the high bit of the 
+color data as a priority for the pixel.
+Various sources report additional effects for this bit, possibly related
+ to bit 7. For example, "Enable the Data Supplied From the External 
+Lsi.", whatever that means. Of course, maybe that's a typo and it's 
+supposed to apply to bit 7 instead.</p>
+<p>^^^This creates a 512-pixel horizontal resolution by taking pixels 
+from the subscreen for the even-numbered pixels (zero based) and from 
+the main screen for the odd-numbered pixels. Color math behaves just as 
+with Mode 5/6 hires. The interlace bit still has no effect. Mosaic 
+operates as normal (not like Mode 5/6). The 'subscreen' pixel is clipped
+ (by windows) when the main-screen pixel to the LEFT is clipped, not 
+when the one to the RIGHT is clipped as you'd expect. What happens with 
+pixel column 0 is unknown.
+Enabling this bit in Modes 5 or 6 has no effect.</p>
+<p>^^^^When set, 239 lines will be displayed instead of the normal 224. 
+This also means V-Blank will occur that much later, and be shorter. All 
+that happens is that extra lines get added to the display, and it seems 
+the TV will like to move the display up 8 pixels.
+Overscan: The bit only matters at the very end of the frame, if you 
+change the setting on line 0xE0 before the normal NMI trigger point then
+ it's the same as if you had it on all frame. Note that this affects 
+both the NMI trigger point and when HDMA stops for the frame.
+If you turn the bit off at the very beginning of scanline X (for 
+0xE1&lt;=X&lt;=0xF0), NMI will occur on line X and the last HDMA 
+transfer will occur on line X-1. However, on my TV at least, the display
+ will remain in the normal no-overscan position for lines E1-EC, it will
+ move up only one pixel for line ED, and it will lose vertical sync for 
+lines EF-F4!
+Turning the bit on, only line E1 gives any effect: NMI will occur on 
+line E2, although the last HDMA will still occur on line E0. Anything 
+else acts like you left the bit off the whole time. Note, however, that 
+if you wait too long after the beginning of the scanline then you will 
+get no effect.
+Even if there is no visible effect, the overscan setting still affects 
+VRAM writes. In particular, executing <code>LDA #'-' / STA $2118 / LDA r2133 / STA $2133 / LDA #'+' / STA $2118</code> during the E1-F0 period will write only + or only - to VRAM, depending on whether the overscan bit was set to 0 or 1.</p>
+<p>^^^^^When set regardless of BG mode, the OBJ will be interlaced (see 
+bit 0 below), and thus will appear half-height.
+Note that this only controls whether obj are drawn as normal or not; the
+ interlace signal is only output to the TV based on bit 0 below.</p>
+<p>^^^^^^When set in BG mode 5 (and probably 6), the effective screen 
+height will be 448 (or 478) pixels, rather than 224 (or 239). When set 
+in any other mode, the screen will just get a bit jumpy. However, 
+toggling the tilemap each field would simulate the increased screen 
+height (much like pseudo-hires simulates hires).
+In hardware, setting this bit makes the SNES output a normal interlace 
+signal rather than always forcing one frame.</p>
+<p>See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" and "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<h3 id="mpyl-multiplication-result-low-byte-672">MPYL - Multiplication Result low byte</h3>
+<h3 id="mpym-multiplication-result-middle-byte-673">MPYM - Multiplication Result middle byte</h3>
+<h3 id="mpyh-multiplication-result-high-byte-674">MPYH - Multiplication Result high byte</h3>
+<pre><code>$2134 r l+++?
+$2135 r m+++?
+$2136 r h+++?
+        xxxxxxxx xxxxxxxx xxxxxxxx
+</code></pre>
+<p>This is the 2's compliment product of the 16-bit value written to 
+$211B and the 8-bit value most recently written to $211C. There is 
+supposedly no important delay. It may not be operative during Mode 7 
+rendering.</p>
+<h3 id="slhv-software-latch-for-hv-counter-683">SLHV - Software Latch for H/V Counter</h3>
+<pre><code>$2137   b++++
+        --------
+</code></pre>
+<p>When read, the H/V counter (as read from $213C and $213D) will be 
+latched to the current X and Y position if bit 7 of $4201 is set. The 
+data actually read is open bus.</p>
+<h3 id="oamdataread*-data-for-oam-read-690">OAMDATAREAD* - Data for OAM read</h3>
+<p>$2138 r w++?-
+xxxxxxxx</p>
+<p>OAM reads are straightforward: the current byte as set in $2102/3 and
+ incremented by reads from this register and writes to $2104 will be 
+returned. Note that writes to the lower table are not affected so 
+logically.
+See register $2104 and the section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.
+Also, note that OAM address invalidation probably affects the address read by this register as well.</p>
+<h3 id="vmdatalread*-vram-data-read-low-byte-699">VMDATALREAD* - VRAM Data Read low byte</h3>
+<h3 id="vmdatahread*-vram-data-read-high-byte-700">VMDATAHREAD* - VRAM Data Read high byte</h3>
+<pre><code>$2139 r l++?-
+$213A r h++?-
+        xxxxxxxx xxxxxxxx
+</code></pre>
+<p>Simply, this reads data from VRAM. The address is incremented when 
+either $2139 or $213A is read, depending on the setting of bit 7 of 
+$2115.
+Actually, the reading is more complex. When either of these registers is
+ read, the appropriate byte from a word-sized buffer is returned. A word
+ from VRAM is loaded into this buffer just <em>before</em> the VRAM 
+address is incremented. The actual data read and the amount of the 
+increment depend on the low 4 bits of $2115. The effect of this is that a
+ 'dummy read' is required after setting $2116-7 before you start getting
+ the actual data.
+The interaction between these registers and $2118/9 is unknown.
+See the sections "<a href="https://wiki.superfamicom.org/backgrounds">BACKGROUNDS</a>" and "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<h3 id="cgdataread*-cgram-data-read-711">CGDATAREAD* - CGRAM Data read</h3>
+<pre><code>$213B r w++?-
+        -bbbbbgg gggrrrrr
+</code></pre>
+<p>This reads from CGRAM.
+Accesses to CGRAM are handled just like accesses to the low table of OAM, see $2138 for details.
+Note that the color values are stored in BGR order. The '-' bit is PPU2 Open Bus.</p>
+<h3 id="ophct-horizontal-scanline-location-720">OPHCT - Horizontal Scanline Location</h3>
+<h3 id="opvct-vertical-scanline-location-721">OPVCT - Vertical Scanline Location</h3>
+<pre><code>$213C r w++++
+$213D r w++++
+        -------x xxxxxxxx
+</code></pre>
+<p>These values are latched by reading $2137 when bit 7 of $4201 is set,
+ or by clearing-and-setting bit 7 of $4201 either by writing $4201 or by
+ pin 6 of Controller Port 2 (the latch occurs on the 1-&gt;0 
+transition).
+Note that the value read is only 9 bits: bits 1-7 of the high byte are 
+PPU2 Open Bus. Each register keeps separate track of whether to return 
+the low or high byte. The high/low selector is reset to 'low' when $213F
+ is read (the selector is NOT reset when the counter is latched).
+H Counter values range from 0 to 339, with 22-277 being visible on the 
+screen. V Counter values range from 0 to 261 in NTSC mode (262 is 
+possible every other frame when interlace is active) and 0 to 311 in PAL
+ mode (312 in interlace?), with 1-224 (or 1-239(?) if overscan is 
+enabled) visible on the screen.</p>
+<h3 id="stat77-ppu-status-flag-and-version-731">STAT77 - PPU Status Flag and Version</h3>
+<pre><code>$213E r b++++
+        trm-vvvv
+        t        = Time Over Flag.^
+         r       = Range Over Flag.^^
+          m      = "Master/slave mode select".^^^
+           -     = PPU1 Open Bus.
+            vvvv = 5c77 chip version number. So far, we've only encountered version 1.
+</code></pre>
+<p>^If more than 34 sprite-tiles (e.g. a 16x16 sprite has 2 
+sprite-tiles) were encountered on a single line, this flag will be set. 
+The flag is reset at the end of V-Blank. See the section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.</p>
+<p>^^If more than 32 sprites were encountered on a single line, this 
+flag will be set. The flag is reset at the end of V-Blank. See the 
+section "<a href="https://wiki.superfamicom.org/sprites">SPRITES</a>" below for details.
+Note that the above two flags are set whether or not OBJ are actually enabled at the time.</p>
+<p>^^^Little is known about this bit. Current theory is that it 
+indicates the status of the "MASTER" pin on the S-PPU1 chip, which in 
+the normal SNES is always GND. We always seem to read back 0 here.</p>
+<h3 id="stat78-ppu-status-flag-and-version-748">STAT78 - PPU Status Flag and Version</h3>
+<pre><code>$213F r b++++
+        fl-pvvvv
+        f        = Interlace Field.^
+         l       = External latch flag.^^
+          -      = PPU2 Open Bus.
+           p     = NTSC/Pal Mode.^^^
+            vvvv = 5C78 chip version number. So far, we've encountered at least 2 and 3. Possibly 1 as well.
+</code></pre>
+<p>^This will toggle every V-Blank.</p>
+<p>^^When the PPU counters are latched, this flag gets set. The flag is reset on read, but only when $4201 bit 7 is set.</p>
+<p>^^^If this is a PAL SNES, this bit will be set, otherwise it will be clear.</p>
+<p>Note: as a side effect of reading this register, the high/low byte selector for $213C/D is reset to 'low'.</p>
+<h3 id="apuio0-apu-io-register-0-766">APUIO0 - APU I/O register 0</h3>
+<h3 id="apuio1-apu-io-register-1-767">APUIO1 - APU I/O register 1</h3>
+<h3 id="apuio2-apu-io-register-2-768">APUIO2 - APU I/O register 2</h3>
+<h3 id="apuio3-apu-io-register-3-769">APUIO3 - APU I/O register 3</h3>
+<pre><code>$2140 rwb++++
+$2141 rwb++++
+$2142 rwb++++
+$2143 rwb++++
+        xxxxxxxx
+</code></pre>
+<p>These registers are used in communication with the SPC700. Note that 
+the value written here is not the value read back. Rather, the value 
+written shows up in the SPC700's registers $F4-7, and the values written
+ to those registers by the SPC700 are what you read here.
+If the SPC700 writes the register during a read, the value read will be 
+the logical OR of the old and new values. The exact cycles during which 
+the 'read' actually occurs is not known, although a good guess would be 
+some portion of the final 3 master cycles of the 6-cycle memory access.
+Note that these registers are mirrored throughout the range $2140-$217F.</p>
+<h3 id="wmdata-wram-data-readwrite-781">WMDATA - WRAM Data read/write</h3>
+<pre><code>$2180 rwb++++
+        xxxxxxxx
+</code></pre>
+<p>This register reads to or writes from the WRAM address set in 
+$2181-3. The address is then incremented. The effect of mixed reads and 
+writes is unknown, but it is suspected that they are handled logically.
+Note that attempting a DMA from WRAM to this register will not work, 
+WRAM will not be written. Attempting a DMA from this register to WRAM 
+will similarly not work, the value written is (initially) the Open Bus 
+value. In either case, the address in $2181-3 is not incremented.</p>
+<h3 id="wmaddl-wram-address-low-byte-789">WMADDL - WRAM Address low byte</h3>
+<h3 id="wmaddm-wram-address-middle-byte-790">WMADDM - WRAM Address middle byte</h3>
+<h3 id="wmaddh-wram-address-high-bit-791">WMADDH - WRAM Address high bit</h3>
+<pre><code>$2181  wl++++
+$2182  wm++++
+$2183  wh++++
+        -------x xxxxxxxx xxxxxxxx
+</code></pre>
+<p>This is the address that will be read or written by accesses to 
+$2180. Note that WRAM is also mapped in the SNES memory space from 
+$7E:0000 to $7F:FFFF, and from $0000 to $1FFF in banks $00 through $3F 
+and $80 through $BF.
+Verious docs indicate that these registers may be read as well as 
+written. However, they are wrong. These registers are open bus.
+DMA from WRAM to these registers has no effect. Otherwise, however, DMA 
+writes them as normal. This means you could use DMA mode 4 to $2180 and a
+ table in ROM to write any sequence of RAM addresses.
+The value does not wrap at page boundaries on increment.</p>
+<h3 id="joyser0-nes-style-joypad-access-port-1-803">JOYSER0 - NES-style Joypad Access Port 1</h3>
+<h3 id="joyser1-nes-style-joypad-access-port-2-804">JOYSER1 - NES-style Joypad Access Port 2</h3>
+<pre><code>$4016 rwb++++
+        Rd: ------ca
+        Wr: -------l
+$4017 r?b++++
+        ---111db
+    l    = Writing this bit controls the Latch line of both controller ports. 
+           When 1 is set, the Latch goes high (or is it low? At any rate, whichever one makes the pads latch their state). 
+           When cleared, the Latch goes the other way.
+    
+    a/b  = These bits return the state of the Data1 line.
+    c/d  = These bits return the state of the Data2 line.
+           Reading $4016 drives the Clock line of Controller Port 1 low.
+           The SNES then reads the Data1 and Data2 lines, and Clock is set back to high.
+           $4017 does the same for Port 2.
+</code></pre>
+<p>These registers basically have a direct connection to the controller 
+ports on the front of the SNES.
+Note the 1-bits in $4017: the CPU chip has pins for these bits, but 
+these pins are tied to GND and thus always 1.
+Data for normal joypads is returned in the order: B, Y, Select, Start, 
+Up, Down, Left, Right, A, X, L, R, 0, 0, 0, 0, then ones until latched 
+again.
+Note that Auto-Joypad Read (see register $4200) will effectively write 1
+ then 0 to bit 'l', then read 16 times from both $4016 and $4017. The 
+'a' bits will end up in $4218/9, with the first bit read (e.g. the B 
+button) in bit 15 of the word. Similarly, the 'b' bits end up in 
+$421A/B, the 'c' bits in $42C/D, and the 'd' bits in $421E/F. Any 
+further bits the device may return may be read from $4016/$4017 as 
+normal.
+The effect of reading these during auto-joypad read is unknown.
+See the section "CONTROLLERS" below for details.</p>
+<h3 id="nmitimen-interrupt-enable-flags-828">NMITIMEN - Interrupt Enable Flags</h3>
+<pre><code>$4200  wb+++?
+        n-yx---a
+        n        = Enable NMI.^
+          x/y    = IRQ enable.
+                   0/0 =&gt; No IRQ will occur
+                   0/1 =&gt; An IRQ will occur sometime just after the V Counter reaches the value set in $4209/a.
+                   1/0 =&gt; An IRQ will occur sometime just after the H Counter reaches the value set in $4207/8.
+                   1/1 =&gt; An IRQ will occur sometime just after the H Counter reaches the value set in $4207/8 when V Counter equals the value set in $4209/a.
+               a = Auto-Joypad Read Enable.^^
+</code></pre>
+<p>^If clear, NMI will not occur. If set, NMI will fire just after the start of V-Blank.
+NMI fires shortly after the V Counter reaches $E1 (or presumably $F0 if overscan is enabled, see register $2133).</p>
+<p>^^When set, the registers $4218-$421F will be updated at about V Counter = $E3 (or presumably $F2).</p>
+<p>Some games try to read this register. However, they work only because open bus behavior gives them values they expect.
+This register is initialized to $00 on power on or reset.</p>
+<h3 id="wrio-programmable-io-port-(out-port)-848">WRIO - Programmable I/O port (out-port)</h3>
+<pre><code>$4201  wb++++
+        abxxxxxx
+</code></pre>
+<p>This is basically just an 8-bit I/O Port. 'b' is connected to pin 6 
+of Controller Port 1. 'a' is connected to pin 6 of Controller Port 2, 
+and to the PPU Latch line. Thus, writing a 0 then a 1 to bit 'a' will 
+latch the H and V Counters much like reading $2137 (the latch happens on
+ the transition to 0). When bit 'a' is 0, no latching can occur.
+Any other effects of this register are unknown. See $4213 for the I half
+ of the I/O Port.
+Note that the IO Port is initialized as if this register were written 
+with all 1-bits at power up, unchanged on reset(?).</p>
+<h3 id="wrmpya-multiplicand-a-857">WRMPYA - Multiplicand A</h3>
+<h3 id="wrmpyb-multiplicand-b-858">WRMPYB - Multiplicand B</h3>
+<pre><code>$4202  wb++++
+$4203  wb++++
+        mmmmmmmm
+</code></pre>
+<p>Write $4202, then $4203. 8 "machine cycles" (probably 48 master 
+cycles) after $4203 is set, the product may be read from $4216/7. $4202 
+will not be altered by this process, thus a new value may be written to 
+$4203 to perform another multiplication without resetting $4202.
+The multiplication is unsigned.
+$4202 holds the value $FF on power on and is unchanged on reset.</p>
+<h3 id="wrdivl-dividend-c-low-byte-868">WRDIVL - Dividend C low byte</h3>
+<h3 id="wrdivh-dividend-c-high-byte-869">WRDIVH - Dividend C high byte</h3>
+<h3 id="wrdivb-divisor-b-870">WRDIVB - Divisor B</h3>
+<pre><code>$4204  wl++++
+$4205  wh++++
+        dddddddd dddddddd
+$4206  wb++++
+        bbbbbbbb
+</code></pre>
+<p>Write $4204/5, then $4206. 16 "machine cycles" (probably 96 master 
+cycles) after $4206 is set, the quotient may be read from $4214/5, and 
+the remainder from $4216/7. Presumably, $4204/5 are not altered by this 
+process, much like $4202.
+The division is unsigned. Division by 0 gives a quotient of $FFFF and a 
+remainder of C.
+WRDIV holds the value $FFFF on power on and is unchanged on reset.</p>
+<h3 id="htimel-h-timer-low-byte-882">HTIMEL - H Timer low byte</h3>
+<h3 id="htimeh-h-timer-high-byte-883">HTIMEH - H Timer high byte</h3>
+<pre><code>$4207  wl++++
+$4208  wh++++
+        -------h hhhhhhhh
+</code></pre>
+<p>If bit 4 of $4200 is set and bit 5 is clear, an IRQ will fire every 
+scanline when the H Counter reaches the value set here. If bits 4 and 5 
+are both set, the IRQ will fire only when the V Counter equals the value
+ set in $4209/a.
+Note that the H Counter ranges from 0 to 339, thus greater values will 
+result in no IRQ firing.
+HTIME is initialized to $1FF on power on, unchanged on reset.</p>
+<h3 id="vtimel-v-timer-low-byte-893">VTIMEL - V Timer low byte</h3>
+<h3 id="vtimeh-v-timer-high-byte-894">VTIMEH - V Timer high byte</h3>
+<pre><code>$4209  wl++++
+$420A  wh++++
+        -------v vvvvvvvv
+</code></pre>
+<p>If bit 5 of $4200 is set and bit 4 is clear, an IRQ will fire just 
+after the V Counter reaches the value set here. If bits 4 and 5 are both
+ set, the IRQ will fire instead when the V Counter equals the value set 
+here and the H Counter reaches the value set in $4207/8.
+Note that the V Counter ranges from 0 to 261 in NTSC mode (262 is 
+possible every other frame when interlace is active) and 0 to 311 in PAL
+ mode (312 in interlace?), thus greater values will result in no IRQ 
+firing.
+VTIME is initialized to $1FF on power on, unchanged on reset.</p>
+<h3 id="mdmaen-dma-enable-904">MDMAEN - DMA Enable</h3>
+<pre><code>$420B  wb++++
+        76543210
+        7/6/5/4/3/2/1/0 = Enable the selected DMA channels.^
+</code></pre>
+<p>^The CPU will be paused until all DMAs complete. DMAs will be executed in order from 0 to 7 (?).</p>
+<p>See registers $43x0-$43xA for more details.
+If HDMA (init or transfer) occurs while a DMA is in progress, the DMA 
+will be paused for the duration. If the HDMA happens to involve the 
+current DMA channel, the DMA will be immediately terminated and the HDMA
+ will progress using the then-current values of the registers. Other DMA
+ channels will be unaffected.
+This register is initialized to $00 on power on or reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="hdmaen-hdma-enable-917">HDMAEN - HDMA Enable</h3>
+<pre><code>$420C  wb++++
+        76543210
+        7/6/5/4/3/2/1/0 = Enable the selected HDMA channels.^
+</code></pre>
+<p>^HDMAs will be executed in order from 0 to 7 (?).</p>
+<p>See registers $43x0-$43xA for more details.
+If HDMA (init or transfer) occurs while a DMA is in progress, the DMA 
+will be paused for the duration. If the HDMA happens to involve the 
+current DMA channel, the DMA will be immediately terminated and the HDMA
+ will progress using the then-current values of the registers. Other DMA
+ channels will be unaffected.
+Note that enabling a channel mid-frame will begin HDMA at the next HDMA 
+point. However, the HDMA register initialization only occurs before the 
+HDMA point on scanline 0, so those registers will have to be initialized
+ by hand before enabling HDMA. A channel that has already terminated for
+ the frame cannot be restarted in this manner.
+Writing 0 to a bit will pause an ongoing HDMA; the transfer may be 
+continued by writing 1 to the bit.
+This register is initialized to $00 on power on or reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="memsel-rom-access-speed-932">MEMSEL - ROM Access Speed</h3>
+<pre><code>$420D  wb++++
+        -------f
+               f = FastROM select.
+</code></pre>
+<p>The SNES uses a master clock running at about 21.477 MHz (current 
+theory is 1.89e9/88 Hz). By default, the SNES takes 8 master cycles for 
+each ROM access. If this bit is set and ROM is accessed via banks 
+$80-$FF, only 6 master cycles will be used.
+This register is initialized to $00 on power on (or reset?).
+See my memory map and timing doc (memmap.txt) for more details.</p>
+<h3 id="nmi-flag-and-5a22-version-942">NMI Flag and 5A22 Version</h3>
+<pre><code>$4210 r b++++ RDNMI
+        n---vvvv
+        n        = NMI Flag.^
+         ---     = Open Bus
+            vvvv = 5A22 chip version number.^^
+</code></pre>
+<p>^This bit is set at the start of V-Blank (at the moment, we suspect 
+when H-Counter is somewhere between $28 and $4E), and cleared on read or
+ at the end of V-Blank.
+Supposedly, it is required that this register be read during NMI.
+Note that this bit is not affected by bit 7 of $4200.
+NMI is cleared on power on or reset.</p>
+<p>^^So far, we've encountered at least 2, maybe 1 as well.</p>
+<h3 id="timeup-irq-flag-957">TIMEUP - IRQ Flag</h3>
+<pre><code>$4211 r b++++
+        i-------
+        i        = IRQ Flag.
+         ------- = Open Bus
+</code></pre>
+<p>This bit is set just after an IRQ fires (at the moment, it seems to 
+have the same delay as the NMI Flag of $4210 has following NMI), and is 
+cleared on read or write.
+Supposedly, it is required that this register be read during the IRQ 
+handler. If this really is the case, then I suspect that that read is 
+what actually clears the CPU's IRQ line.
+This register is marked read/write in another doc, with no explanation.
+IRQ is cleared on power on or reset.</p>
+<h3 id="hvbjoy-ppu-status-969">HVBJOY - PPU Status</h3>
+<pre><code>$4212 r b++++
+        vh-----a
+        v        = V-Blank Flag.^
+         h       = H-Blank Flag.^^
+               a = Auto-Joypad Status.^^^
+</code></pre>
+<p>^If we're currently in V-Blank, this flag is set, otherwise it is 
+clear. The setting seems to occur at H Counter about $16-$17 when V 
+Counter is $E1, and the clearing at about $1E with V Counter 0.</p>
+<p>^^If we're currently in H-Blank, this flag is set, otherwise it is 
+clear. The setting seems to occur at H Counter about $121-$122, and the 
+clearing at about $12-$18.</p>
+<p>^^^This is set while Auto-Joypad Read is in progress, and cleared 
+when complete. It typically turns on at the start of V-Blank, and 
+completes 3 scanlines later.</p>
+<p>This register is marked read/write in another doc, with no explanation.</p>
+<h3 id="rdio-programmable-io-port-(in-port)-985">RDIO - Programmable I/O port (in-port)</h3>
+<pre><code>$4213 r b++++
+        abxxxxxx
+</code></pre>
+<p>Reading this register reads data from the I/O Port. The way the I/O 
+Port works, any bit set to 0 in $4201 will be 0 here. Any bit set to 1 
+in $4201 may be 1 or 0 here, depending on whether any other device 
+connected to the I/O Port has set a 0 to that bit.
+Bit 'b' is connected to pin 6 of Controller Port 1. Bit 'a' is connected
+ to pin 6 of Controller Port 2, and to the PPU Latch line.
+See register $4201 for the O side of the I/O Port.</p>
+<h3 id="rddivl-quotient-of-divide-result-low-byte-994">RDDIVL - Quotient of Divide Result low byte</h3>
+<h3 id="rddivh-quotient-of-divide-result-high-byte-995">RDDIVH - Quotient of Divide Result high byte</h3>
+<pre><code>$4214 r l++++
+$4215 r h++++
+        qqqqqqqq qqqqqqqq
+
+    Write $4204/5, then $4206. 16 "machine cycles" (probably 96 master
+    cycles) after $4206 is set, the quotient may be read from these
+    registers, and the remainder from $4216/7.
+    
+    The division is unsigned.
+</code></pre>
+<h3 id="rdmpyl-multiplication-product-or-divide-remainder-low-byte-1007">RDMPYL - Multiplication Product or Divide Remainder low byte</h3>
+<h3 id="rdmpyh-multiplication-product-or-divide-remainder-high-byte-1008">RDMPYH - Multiplication Product or Divide Remainder high byte</h3>
+<pre><code>$4216 r l++++
+$4217 r h++++
+        xxxxxxxx xxxxxxxx
+</code></pre>
+<p>Write $4202, then $4203. 8 "machine cycles" (probably 48 master 
+cycles) after $4203 is set, the product may be read from these 
+registers.
+Write $4204/5, then $4206. 16 "machine cycles" (probably 96 master 
+cycles) after $4206 is set, the quotient may be read from $4214/5, and 
+the remainder from these registers.
+The multiplication and division are both unsigned.</p>
+<h3 id="joy1l-controller-port-1-data1-register-low-byte-1018">JOY1L - Controller Port 1 Data1 Register low byte</h3>
+<h3 id="joy1h-controller-port-1-data1-register-high-byte-1019">JOY1H - Controller Port 1 Data1 Register high byte</h3>
+<h3 id="joy2l-controller-port-2-data1-register-low-byte-1020">JOY2L - Controller Port 2 Data1 Register low byte</h3>
+<h3 id="joy2h-controller-port-2-data1-register-high-byte-1021">JOY2H - Controller Port 2 Data1 Register high byte</h3>
+<h3 id="joy3l-controller-port-1-data2-register-low-byte-1022">JOY3L - Controller Port 1 Data2 Register low byte</h3>
+<h3 id="joy3h-controller-port-1-data2-register-high-byte-1023">JOY3H - Controller Port 1 Data2 Register high byte</h3>
+<h3 id="joy4l-controller-port-2-data2-register-low-byte-1024">JOY4L - Controller Port 2 Data2 Register low byte</h3>
+<h3 id="joy4h-controller-port-2-data2-register-high-byte-1025">JOY4H - Controller Port 2 Data2 Register high byte</h3>
+<pre><code>$4218 r l++++
+$4219 r h++++
+$421A r l++++
+$421B r h++++
+$421C r l++++
+$421D r h++++
+$421E r l++++
+$421F r h++++
+        byetUDLR axlr0000
+        a/b/x/y/l/r/e/t   = A/B/X/Y/L/R/Select/Start button status.
+        U/D/L/R           = Up/Down/Left/Right control pad status.
+                            Note that only one of L/R and only one of U/D may be set, due to the pad hardware.
+</code></pre>
+<p>The bitmap above only applies for joypads, obviously. More 
+generically, Auto Joypad Read effectively sets 1 then 0 to $4016, then 
+reads $4016/7 16 times to get the bits for these registers.
+These registers are only updated when the Auto-Joypad Read bit (bit 0) 
+of $4200 is set. They are being updated while the Auto-Joypad Status bit
+ (bit 0) of $4212 is set. Reading during this time will return incorrect
+ values.
+See the section "CONTROLLERS" below for details.</p>
+<h3 id="dmapx-dma-control-for-channel-x-(x0-7)-1044">DMAPx - DMA Control for Channel x (x=0-7)</h3>
+<pre><code>$43x0 rwb++++
+        da-ifttt
+        d        = Transfer Direction.^
+         a       = HDMA Addressing Mode.^^
+           i     = DMA Address Increment.^^^
+            f    = DMA Fixed Transfer.^^^^
+
+        ttt  = Transfer Mode.
+            000 =&gt; 1 register write once             (1 byte:  p               )
+            001 =&gt; 2 registers write once            (2 bytes: p, p+1          )
+            010 =&gt; 1 register write twice            (2 bytes: p, p            )
+            011 =&gt; 2 registers write twice each      (4 bytes: p, p,   p+1, p+1)
+            100 =&gt; 4 registers write once            (4 bytes: p, p+1, p+2, p+3)
+            101 =&gt; 2 registers write twice alternate (4 bytes: p, p+1, p,   p+1)
+            110 =&gt; 1 register write twice            (2 bytes: p, p            )
+            111 =&gt; 2 registers write twice each      (4 bytes: p, p,   p+1, p+1)
+</code></pre>
+<p>^When clear, data will be read from the CPU memory and written to the
+ PPU register. When set, vice versa.
+Contrary to previous belief, this bit DOES affect HDMA! Indirect mode is
+ more useful, it will read the table as normal and write from Bus B to 
+the Bus A address specified. Direct mode will work as expected though, 
+it will read counts from the table and try to write the data values into
+ the table.</p>
+<p>^^When clear, the HDMA table contains the data to transfer. When set,
+ the HDMA table contains pointers to the data. This bit does not affect 
+DMA.</p>
+<p>^^^When clear, the DMA address will be incremented for each byte. 
+When set, the DMA address will be decremented. This bit does not affect 
+HDMA.</p>
+<p>^^^^When set, the DMA address will not be adjusted. When clear, the 
+address will be adjusted as specified by bit 4. This bit does not affect
+ HDMA.</p>
+<p>The effect of writing this register during HDMA to the associated 
+channel is unknown. Most likely, the change takes effect for the next 
+HDMA transfer.
+This register is set to $FF on power on, and is unchanged on reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="bbadx-dma-destination-register-for-channel-x-(x0-7)-1076">BBADx - DMA Destination Register for Channel x (x=0-7)</h3>
+<pre><code>$43x1 rwb++++
+        pppppppp
+</code></pre>
+<p>This specifies the Bus B address to access. Considering the standard 
+CPU memory space, this specifies which address $00:2100-$00:21FF to 
+access, with two- and four-register modes wrapping $21FF-&gt;$2100, not 
+$2200.
+The effect of writing this register during HDMA to the associated 
+channel is unknown. Most likely, the change takes effect for the next 
+transfer.
+This register is set to $FF on power on, and is unchanged on reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="a1txl-dma-source-address-for-channel-x-low-byte-(x0-7)-1086">A1TxL - DMA Source Address for Channel x low byte (x=0-7)</h3>
+<h3 id="a1txh-dma-source-address-for-channel-x-high-byte-(x0-7)-1087">A1TxH - DMA Source Address for Channel x high byte (x=0-7)</h3>
+<h3 id="a1bx-dma-source-address-for-channel-x-bank-byte-(x0-7)-1088">A1Bx - DMA Source Address for Channel x bank byte (x=0-7)</h3>
+<pre><code>$43x2 rwl++++
+$43x3 rwh++++
+$43x4 rwb++++
+        bbbbbbbb hhhhhhhh llllllll
+</code></pre>
+<p>This specifies the starting Address Bus A address for the DMA 
+transfer, or the beginning of the HDMA table for HDMA transfers. Note 
+that Bus A does not access the Bus B registers, so pointing this address
+ at say $00:2100 results in open bus.
+The effect of writing this register during HDMA to the associated 
+channel is unknown. However, current theory is that only $43x4 will 
+affect the transfer. The changes will take effect at the next HDMA init.
+During DMA, $43x2/3 will be incremented or decremented as specified by 
+$43x0. However $43x4 will NOT be adjusted. These registers will not be 
+affected by HDMA.
+This register is set to $FF on power on, and is unchanged on reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="dasxl-dma-sizehdma-indirect-address-low-byte-(x0-7)-1101">DASxL - DMA Size/HDMA Indirect Address low byte (x=0-7)</h3>
+<h3 id="dasxh-dma-sizehdma-indirect-address-high-byte-(x0-7)-1102">DASxH - DMA Size/HDMA Indirect Address high byte (x=0-7)</h3>
+<h3 id="dasbx-hdma-indirect-address-bank-byte-(x0-7)-1103">DASBx - HDMA Indirect Address bank byte (x=0-7)</h3>
+<pre><code>$43x5 rwl++++
+$43x6 rwh++++
+$43x7 rwb++++
+        bbbbbbbb hhhhhhhh llllllll
+</code></pre>
+<p>For DMA, $43x5/6 indicate the number of bytes to transfer. Note that 
+this is a strict limit: if this is set to 1 then only 1 byte will be 
+written, even if the transfer mode specifies 2 or 4 registers (and if 
+this is 5, all 4 registers would be written once, then the first only 
+would be written a second time). Note, however, that writing $0000 to 
+this register actually results in a transfer of $10000 bytes, not 0.
+$43x5/6 are decremented during DMA, and thus typically end up set to 0 
+when DMA is complete.
+For HDMA, $43x7 specifies the bank for indirect addressing mode. The 
+indirect address is copied into $43x5/6 and incremented appropriately. 
+For direct HDMA, these registers are not used or altered.
+Writes to $43x7 during indirect HDMA will take effect for the next 
+transfer. Writes to $43x5/6 during indirect HDMA will also take effect 
+for the next HDMA transfer, however this is only noticeable during 
+repeat mode (for normal mode, a new indirect address will be read from 
+the table before the transfer). For a direct transfer, presumably 
+nothing will happen.
+This register is set to $FF on power on, and is unchanged on reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="a2axl-hdma-table-address-low-byte-(x0-7)-1117">A2AxL - HDMA Table Address low byte (x=0-7)</h3>
+<h3 id="a2axh-hdma-table-address-high-byte-(x0-7)-1118">A2AxH - HDMA Table Address high byte (x=0-7)</h3>
+<pre><code>$43x8 rwl++++
+$43x9 rwh++++
+        aaaaaaaa aaaaaaaa
+</code></pre>
+<p>At the beginning of the frame $43x2/3 are copied into this register 
+for all active HDMA channels, and then this register is updated as the 
+table is read. Thus, if a game wishes to start HDMA mid-frame (or change
+ tables mid-frame), this register must be written. Writing this register
+ mid-frame changes the table address for the next scanline.
+This register is not used for DMA.
+This register is set to $FF on power on, and is unchanged on reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="nltrx-hdma-line-counter-(x0-7)-1129">NLTRx - HDMA Line Counter (x=0-7)</h3>
+<pre><code>$43xA rwb++++
+        rccccccc
+        r        = Repeat Select.^
+         ccccccc = Line count.^^
+</code></pre>
+<p>^When set, the HDMA transfer will be performed every line, rather 
+than only when this register is loaded from the table. However, this 
+byte (and the indirect HDMA address) will only be reloaded from the 
+table when the counter reaches 0.</p>
+<p>^^This is decremented every scanline. When it reaches 0, a byte is 
+read from the HDMA table into this register (and the indirect HDMA 
+address is read into $43x5/6 if applicable).</p>
+<p>One oddity: the register is decremented before being checked for r 
+status or c==0. Thus, setting a value of $80 is really "128 lines with 
+no repeat" rather than "0 lines with repeat". Similarly, a value of $00 
+will be "128 lines with repeat" when it doesn't mean "terminate the 
+channel".
+This register is initialized at the end of V-Blank for every active HDMA
+ channel. Note that if a game wishes to begin HDMA during the frame, it 
+will most likely have to initialize this register. Writing this 
+mid-transfer will similarly change the count and repeat to take effect 
+next scanline. Remember though that 'repeat' won't take effect until 
+after the next transfer period.
+This register is set to $FF on power on, and is unchanged on reset.
+See the section "DMA AND HDMA" below for more information.</p>
+<h3 id="x-unknown-(x0-7)-1145">????x - Unknown (x=0-7)</h3>
+<h3 id="x-unknown-(x0-7)-1146">????x - Unknown (x=0-7)</h3>
+<pre><code>$43xB rwb++++
+$43xF rwb++++
+        ????????
+</code></pre>
+<p>The effects of these registers (if any) are unknown. $43xF and $43xB are really aliases for the same register.
+This register is set to $FF on power on, and is unchanged on reset.</p></article>
+      </main>
+    </div>
+    <div class="row actions">
+      <main class="col-sm-12">
+        <a class="button" href="https://wiki.superfamicom.org/registers/edit" title="Edit">✏️ Edit</a>
+        <a class="button" href="https://wiki.superfamicom.org/registers/history" title="View Document Edit History">📕 View History</a>
+      </main>
+    </div>
+    <div class="row bottom">
+      <main class="col-sm-12">
+        <div class="row content-sections">
+          <div class="col-sm-4">
+            <div class="section">
+              <h2>Related Documents</h2>
+              <ul class="related-documents">
+                <li><a href="https://wiki.superfamicom.org/65816-reference" title="65816 Reference">65816 Reference</a></li>
+                <li><a href="https://wiki.superfamicom.org/agenda-music-format" title="Agenda Music Format">Agenda Music Format</a></li>
+                <li><a href="https://wiki.superfamicom.org/bs-x-bios-functions" title="BS-X BIOS Functions">BS-X BIOS Functions</a></li>
+                <li><a href="https://wiki.superfamicom.org/background-mode-capability-table" title="Background Mode Capability Table">Background Mode Capability Table</a></li>
+                <li><a href="https://wiki.superfamicom.org/background-priority-chart" title="Background Priority Chart">Background Priority Chart</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="section">
+              <h2>Recent Documents</h2>
+              <ul class="recent-documents">
+                <li><a href="https://wiki.superfamicom.org/bazz" title="bazz">bazz</a></li>
+                <li><a href="https://wiki.superfamicom.org/cx4-command-matrix" title="Cx4 Command Matrix">Cx4 Command Matrix</a></li>
+                <li><a href="https://wiki.superfamicom.org/cx4-opcode-matrix" title="Cx4 Opcode Matrix">Cx4 Opcode Matrix</a></li>
+                <li><a href="https://wiki.superfamicom.org/super-fx-cycle-times" title="Super FX cycle times">Super FX cycle times</a></li>
+                <li><a href="https://wiki.superfamicom.org/super-fx-acronyms" title="Super FX acronyms">Super FX acronyms</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="section">
+              <h2>Popular Documents</h2>
+              <ul class="popular-documents">
+                <li><a href="https://wiki.superfamicom.org/spc700-reference" title="SPC700 Reference">SPC700 Reference</a></li>
+                <li><a href="https://wiki.superfamicom.org/registers" title="Registers">Registers</a></li>
+                <li><a href="https://wiki.superfamicom.org/memory-mapping" title="Memory Mapping">Memory Mapping</a></li>
+                <li><a href="https://wiki.superfamicom.org/65816-reference" title="65816 Reference">65816 Reference</a></li>
+                <li><a href="https://wiki.superfamicom.org/schematics-ports-and-pinouts" title="Schematics, Ports, and Pinouts">Schematics, Ports, and Pinouts</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="row">
+      ©2025 Super Famicom Development Wiki | 🐌 | 🌺 | <a href="https://github.com/uttori/uttori-wiki" rel="external" title="Powered by Uttori Wiki">🔌 by Uttori Wiki</a> | <a href="https://twitter.com/superfamicom" rel="external" title="Help &amp; Support">Help &amp; Support</a>
+    </div>
+  </div>
+</footer>
+<script type="module" src="Registers%20_%20Super%20Famicom%20Development%20Wiki_files/page.js"></script><script async="" src="Registers%20_%20Super%20Famicom%20Development%20Wiki_files/google-analytics_analytics.js"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RC5NJVRC8F');
+</script>
+
+
+</body></html>

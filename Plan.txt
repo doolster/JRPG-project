@@ -1,0 +1,21 @@
+CODE------------------------------------
+
+Systems
+ - Save data
+
+Overworld
+ - Player movement
+  + Collision
+ - screen transitions
+ - background scrolling/movement
+ - Menus
+ - NPCs
+ - Map layouts
+
+Battle
+ - Menus
+ - Enemy AI
+
+ART------------------------------------
+
+SOUND----------------------------------

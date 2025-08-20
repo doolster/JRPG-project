@@ -1,4 +1,4 @@
-set( CMAKE_CA65816_COMPILER "C:/Users/ZWdoo/OneDrive/Documents/cc65-snapshot-win32/bin/ca65.exe" )
+set( CMAKE_CA65816_COMPILER "C:/Program Files (x86)/cc65-snapshot-win32/bin/ca65.exe" )
 set( CMAKE_CA65816_COMPILER_LOADED 1 )
 set( CMAKE_CA65816_SOURCE_FILE_EXTENSIONS s;asm )
 set( CMAKE_CA65816_OUTPUT_EXTENSION .o )

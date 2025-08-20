@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ZWdoo\Documents\SNESDev\JRPG-Project\ROM\build\CMakeFiles\bf25bd0c6c2e364677344ad2cc844226\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{8279375B-B5B7-3562-8B98-33ACF195D469}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeDetermineSystem.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeSystem.cmake.in
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Platform/Windows-Initialize.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Platform/WindowsPaths.cmake
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/CMakeLists.txt
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/4.1.0-rc4/CMakeCA65816Compiler.cmake
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/4.1.0-rc4/CMakeSystem.cmake
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/cmake/CMakeCA65816Compiler.cmake.in
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/cmake/CMakeCA65816Information.cmake
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/cmake/CMakeDetermineCA65816Compiler.cmake
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/cmake/CMakeTestCA65816Compiler.cmake

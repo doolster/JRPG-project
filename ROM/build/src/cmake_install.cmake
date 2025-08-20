@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/src
+# Install script for directory: C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -34,22 +34,22 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/common/cmake_install.cmake")
+  include("C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/common/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/Game/cmake_install.cmake")
+  include("C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/Game/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/PPU/cmake_install.cmake")
+  include("C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/PPU/cmake_install.cmake")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/install_local_manifest.txt"
+  file(WRITE "C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

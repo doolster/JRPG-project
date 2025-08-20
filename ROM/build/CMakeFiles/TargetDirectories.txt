@@ -1,0 +1,13 @@
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/CMakeFiles/SNESCradle.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/assets/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/assets/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/common/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/common/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/Game/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/Game/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/PPU/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/PPU/CMakeFiles/rebuild_cache.dir

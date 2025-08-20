@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/cmake_install.cmake",
+		"C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/assets/cmake_install.cmake",
+		"C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/cmake_install.cmake",
+		"C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/common/cmake_install.cmake",
+		"C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/Game/cmake_install.cmake",
+		"C:/Users/ZWdoo/OneDrive/Documents/snes-dev/snes-assembly-adventure-code/11_snes_cradle/build/src/PPU/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

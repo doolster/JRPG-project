@@ -14,11 +14,12 @@
 ;-------------------------------------------------------------------------------
 
 ;----- Includes ----------------------------------------------------------------
+.include "Registers.inc"
+.include "macros.inc"
 .include "Assets.inc"
 .include "GameConstants.inc"
 .include "MemoryMapWRAM.inc"
 .include "PPU.inc"
-.include "Registers.inc"
 ;-------------------------------------------------------------------------------
 
 .segment "CODE"
@@ -100,7 +101,7 @@
         sta OAMMIRROR, X
         inx
         ; move the other sprites off screen
-        rep #$20                            ; set A to 16-bit
+        setA16                              ; set A to 16-bit
         lda #$f180                          ; Y = 241, X = -128
 OAMLoop:
         sta OAMMIRROR, X
@@ -117,7 +118,7 @@ OBJLoop:
         cpx #OAMMIRROR_SIZE
         bne OBJLoop
 
-        sep #$20                            ; set A to 8-bit
+        setA8                               ; set A to 8-bit
         ; correct extra OAM byte for first four sprites
         ldx #$0200
         lda #$00

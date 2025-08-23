@@ -13,6 +13,8 @@
 ;-------------------------------------------------------------------------------
 
 ;----- Includes ----------------------------------------------------------------
+.include "Registers.inc"
+.include "macros.inc"
 .include "Assets.inc"
 .include "GameConstants.inc"
 .include "Init.inc"
@@ -21,7 +23,6 @@
 .include "Joypad.inc"
 .include "MemoryMapWRAM.inc"
 .include "PPU.inc"
-.include "Registers.inc"
 ;-------------------------------------------------------------------------------
 
 .segment "CODE"
@@ -32,8 +33,8 @@
         sei                     ; disable interrupts
         clc                     ; clear the carry flag
         xce                     ; switch the 65816 to native (16-bit mode)
-        rep #$10                ; set X and Y to 16-bit
-        sep #$20                ; set A to 8-bit
+        setXY16                 ; set X and Y to 16-bit
+        setA8                   ; set A to 8-bit
         lda #$8f                ; force v-blanking
         sta INIDISP
         stz NMITIMEN            ; disable NMI

@@ -15,8 +15,9 @@
 ;-------------------------------------------------------------------------------
 
 ;----- Includes ----------------------------------------------------------------
-.include "MemoryMapWRAM.inc"
 .include "Registers.inc"
+.include "macros.inc"
+.include "MemoryMapWRAM.inc"
 ;-------------------------------------------------------------------------------
 
 .segment "CODE"
@@ -44,7 +45,7 @@ WaitForJoypad:
         ; first, check for newly pressed buttons since last frame
         ; A - current frame
         ; Y - auxiliar
-        rep #$20                            ; set A to 16-bit
+        setA16                              ; set A to 16-bit
         lda (Raw)                           ; get last frame's input...
         tay                                 ; ...and store in Y
         lda JOY1L                           ; get new input from this frame
@@ -59,7 +60,7 @@ WaitForJoypad:
         sta (Held)                          ; ...store them
 
         ; done
-        sep #$20                            ; set A back to 8-bit
+        setA8                               ; set A back to 8-bit
         pld                                 ; restore D...
         plx                                 ; ...and X registers
         rts
@@ -90,7 +91,7 @@ WaitForJoypad:
         ; first, check for newly pressed buttons since last frame
         ; A - current frame
         ; Y - auxiliar
-        rep #$20                            ; set A to 16-bit
+        setA16                              ; set A to 16-bit
         lda (Raw)                           ; get last frame's input...
         tay                                 ; ...and store in Y
         lda JOY2L                           ; get new input from this frame
@@ -105,7 +106,7 @@ WaitForJoypad:
         sta (Held)                          ; ...store them
 
         ; done
-        sep #$20                            ; set A back to 8-bit
+        setA8                               ; set A back to 8-bit
         pld                                 ; restore D...
         plx                                 ; ...and X registers
 

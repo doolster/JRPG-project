@@ -18,6 +18,7 @@
 
 ;----- Includes ----------------------------------------------------------------
 .include "Registers.inc"
+.include "macros.inc"
 ;-------------------------------------------------------------------------------
 
 .segment "CODE"
@@ -42,17 +43,7 @@
         lda #$80
         sta VMAINC              ; increment VRAM address by 1 when writing to VMDATAH
 
-        ; loop through source data and transfer to VRAM
-        ldy #$0000              ; set register Y to zero, we will use Y as a loop counter and offset
-VRAMLoop:
-        lda (SrcPointer, S), Y  ; get bitplane 0/2 byte from the sprite data
-        sta VMDATAL             ; write the byte in A to VRAM
-        iny                     ; increment counter/offset
-        lda (SrcPointer, S), Y  ; get bitplane 1/3 byte from the sprite data
-        sta VMDATAH             ; write the byte in A to VRAM
-        iny                     ; increment counter/offset
-        cpy NumBytes            ; check whether we have written $04 * $20 = $80 bytes to VRAM (four sprites)
-        bcc VRAMLoop            ; if X is smaller than $80, continue the loop
+        DMA0 #%00000001, #<VMDATAL, SrcPointer, NumBytes
 
         ; all done
         pld                     ; restore caller's frame pointer
@@ -80,16 +71,7 @@ VRAMLoop:
         lda DestPointer         ; get destination address
         sta CGADD               ; set CGRAM destination address
 
-        ldy #$0000              ; set Y to zero, use it as loop counter and offset
-CGRAMLoop:
-        lda (SrcPointer, S), Y  ; get the color low byte
-        sta CGDATA              ; store it in CGRAM
-        iny                     ; increase counter/offset
-        lda (SrcPointer, S), Y  ; get the color high byte
-        sta CGDATA              ; store it in CGRAM
-        iny                     ; increase counter/offset
-        cpy NumBytes            ; check whether 32/$20 bytes were transfered
-        bcc CGRAMLoop           ; if not, continue loop
+        DMA0 #%00000010, #<CGDATA, SrcPointer, NumBytes
 
         ; all done
         pld                     ; restore caller's frame pointer
@@ -110,19 +92,7 @@ CGRAMLoop:
         ; use constants to access arguments on stack with Direct Addressing
         MirrorAddr  = $07       ; address of the mirror we want to copy
 
-        ; set up DMA channel 0 to transfer data to OAMRAM
-        lda #%00000010          ; set DMA channel 0
-        sta DMAP0
-        lda #$04                ; set destination to OAMDATA
-        sta BBAD0
-        ldx MirrorAddr          ; get address of OAMRAM mirror
-        stx A1T0L               ; set low and high byte of address
-        stz A1T0B               ; set bank to zero, since the mirror is in WRAM
-        ldx #$0220              ; set the number of bytes to transfer
-        stx DAS0L
-
-        lda #$01                ; start DMA transfer
-        sta MDMAEN
+        DMA0 #%00000010, #<OAMDATA, MirrorAddr, #$0220
 
         ; OAMRAM update is done, restore frame and stack pointer
         pld                     ; restore caller's frame pointer

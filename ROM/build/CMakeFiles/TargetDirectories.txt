@@ -1,3 +1,13 @@
 C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/SNESCradle.dir
-C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/assets/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/assets/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/common/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/common/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/Game/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/Game/CMakeFiles/rebuild_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/PPU/CMakeFiles/edit_cache.dir
+C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/PPU/CMakeFiles/rebuild_cache.dir

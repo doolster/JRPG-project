@@ -16,3 +16,6 @@ set_target_properties( ${PROJECT_NAME}
 if( NOT DEFINED MEMORY_MAP_FILE )
   message( FATAL_ERROR "Path to memory map file not set!" )
 endif( NOT DEFINED MEMORY_MAP_FILE )
+
+# create build dir with Ninja "cmake -S . -B build -G "Ninja""
+# build with "cmake --build build"

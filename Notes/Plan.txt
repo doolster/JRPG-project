@@ -2,12 +2,16 @@ CODE------------------------------------
 
 Systems
  - Save data
+ - Text display system
+ - RNG
+ - cutscenes
 
 Overworld
  - Player movement
   + Collision
- - screen transitions
- - background scrolling/movement
+  + Animations
+ - Screen transitions
+ - Background scrolling/movement
  - Menus
  - NPCs
  - Map layouts
@@ -15,6 +19,7 @@ Overworld
 Battle
  - Menus
  - Enemy AI
+ - Attack animations
 
 ART------------------------------------
 

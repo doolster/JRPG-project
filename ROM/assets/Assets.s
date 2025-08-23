@@ -13,5 +13,6 @@
 .segment "SPRITEDATA"
 SpriteData: .incbin "Sprites.vra"
 ColorData:  .incbin "SpriteColors.pal"
+            .incbin "grass.pal"
 BGTileData: .incbin "grass.bin"
 ;-------------------------------------------------------------------------------

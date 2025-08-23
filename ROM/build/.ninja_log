@@ -8,3 +8,13 @@
 267	350	7776107443502326	CMakeFiles/SNESCradle.dir/src/PPU/PPU.s.o	ac4c58e20b3bf27b
 294	383	7776107443795523	CMakeFiles/SNESCradle.dir/src/Main.s.o	42ecdd95559c4e9e
 383	1274	7776107444626693	SNESCradle.smc	5f26328f220bddcd
+35	233	7776213964498009	build.ninja	4fdcc18f877d72bc
+35	233	7776213964498009	C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/cmake_install.cmake	4fdcc18f877d72bc
+35	233	7776213964498009	C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/assets/cmake_install.cmake	4fdcc18f877d72bc
+35	233	7776213964498009	C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/cmake_install.cmake	4fdcc18f877d72bc
+35	233	7776213964498009	C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/common/cmake_install.cmake	4fdcc18f877d72bc
+35	233	7776213964498009	C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/Game/cmake_install.cmake	4fdcc18f877d72bc
+35	233	7776213964498009	C:/Users/ZWdoo/Documents/SNESDev/JRPG-Project/ROM/build/src/PPU/cmake_install.cmake	4fdcc18f877d72bc
+15	913	7776213964853378	CMakeFiles/SNESCradle.dir/assets/Assets.s.o	6562a9cfd0c2a009
+855	960	7776213973263223	CMakeFiles/SNESCradle.dir/src/Game/Init.s.o	d35161bc636fd74d
+960	1482	7776213974319764	SNESCradle.smc	5f26328f220bddcd

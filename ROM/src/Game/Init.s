@@ -40,7 +40,7 @@
         lda #$80                        ; destination address in CGRAM
         pha
         pea ColorData                   ; color data source address
-        lda #$20                        ; number of bytes (32/$20) to transfer
+        lda #$40                        ; number of bytes (64/$40) to transfer (2 palettes)
         pha
         jsr LoadCGRAM                   ; transfer color data into CGRAM
         txs                             ; restore old stack pointer

@@ -2,3 +2,4 @@
 2. In same dir as png run "superfamiconv -i file.png -t file.bin -p file.pal"
     - TODO: check settings for tile/map output
 3. Copy output files to assets dir and include in Assets.s
+4. Add file label to export list in Assets.s and import list in Assets.inc

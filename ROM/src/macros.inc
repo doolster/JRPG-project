@@ -35,7 +35,10 @@ MACROS_INC = 1
 
 ; [ DMA macros ]
 
-; (.byte), .addr, .addr, .word - a8, x16
+;-------------------------------------------------------------------------------
+;   DMA channel 0 - a8, x16
+;   control: .byte, dest: .addr, start: .addr, numBytes: .word
+;-------------------------------------------------------------------------------
 .macro DMA0 control, dest, start, numBytes
     lda control
     sta DMAP0

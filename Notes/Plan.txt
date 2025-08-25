@@ -3,6 +3,7 @@ CODE------------------------------------
 Systems
  - Save data
  - Text display system
+    + text to hex converter
  - RNG
  - cutscenes
 
@@ -10,10 +11,10 @@ Overworld
  - Player movement
   + Collision
   + Animations
- - Screen transitions
  - Background scrolling/movement
  - Menus
- - NPCs
+ - Interactable characters
+ - Screen transitions
  - Map layouts
 
 Battle

@@ -6,6 +6,7 @@ MEMORY_MAP_WRAM_INC = 1
 ; -----------------------------------------------------------------------------
 
 ;----- Memory Map WRAM ---------------------------------------------------------
+DEBUG       = $02e0     ; write to address to trigger breakpoint
 HOR_SPEED   = $0300     ; the horizontal speed
 VER_SPEED   = $0301     ; the vertical speed
 JOYRAW1     = $0302     ; data read from joypad 1

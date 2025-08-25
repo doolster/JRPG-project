@@ -24,7 +24,7 @@
 .segment "CODE"
 ;-------------------------------------------------------------------------------
 ;   Load sprite data into VRAM
-;   Parameters: NumBytes: .byte, SrcPointer: .addr, DestPointer: .addr
+;   Parameters: NumBytes: .word, SrcPointer: .addr, DestPointer: .addr
 ;-------------------------------------------------------------------------------
 .proc   LoadVRAM
         phx                     ; save old stack pointer
@@ -34,8 +34,8 @@
         tcd                     ; ...Direct Register.
         ; use constants to access arguments on stack with Direct Addressing
         NumBytes    = $07       ; number of bytes to transfer
-        SrcPointer  = $08       ; source address of sprite data
-        DestPointer = $0a       ; destination address in VRAM
+        SrcPointer  = $09       ; source address of sprite data
+        DestPointer = $0b       ; destination address in VRAM
 
         ; set destination address in VRAM, and address increment after writing to VRAM
         ldx DestPointer         ; load the destination pointer...
@@ -54,7 +54,7 @@
 
 ;-------------------------------------------------------------------------------
 ;   Load color data into CGRAM
-;   NumBytes: .byte, SrcPointer: .byte, DestPointer: .addr
+;   NumBytes: .word, SrcPointer: .byte, DestPointer: .addr
 ;-------------------------------------------------------------------------------
 .proc   LoadCGRAM
         phx                     ; save old stack pointer
@@ -64,8 +64,8 @@
         tcd                     ; ...Direct Register.
         ; use constants to access arguments on stack with Direct Addressing
         NumBytes    = $07       ; number of bytes to transfer
-        SrcPointer  = $08       ; source address of sprite data
-        DestPointer = $0a       ; destination address in VRAM
+        SrcPointer  = $09       ; source address of sprite data
+        DestPointer = $0b       ; destination address in VRAM
 
         ; set CGDRAM destination address
         lda DestPointer         ; get destination address

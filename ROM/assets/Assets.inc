@@ -8,5 +8,7 @@ ASSETS_INC = 1
 ;----- Import ------------------------------------------------------------------
 .import     SpriteData
 .import     ColorData
+.import     BGColor
+.import     BGCharData
 ;-------------------------------------------------------------------------------
 .endif

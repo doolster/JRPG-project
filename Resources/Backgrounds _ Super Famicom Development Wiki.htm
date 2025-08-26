@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="theme-color" content="#222222">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backgrounds | Super Famicom Development Wiki</title>
+<link rel="stylesheet" href="Backgrounds%20_%20Super%20Famicom%20Development%20Wiki_files/style.css" media="all">
+<link rel="apple-touch-icon" href="https://wiki.superfamicom.org/apple-touch-icon.png">
+<link rel="preconnect" href="https://snes.in/" crossorigin="">
+<link rel="dns-prefetch" href="https://snes.in/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="description" content="The SNES has 8 background modes, two of which have major variations. The modes are selected by bits 0-2 of register `$2105`.
+
+    Mode    # Colors for BG
+             1   2   3   4
+    ======---=---=---=---=
+    0        4   4   4   4
+    1       16  16   4   -
+    2       16  16   -   -
+    3      256  16   -   -
+    4      256   4   -   -
+    5       16   4   -   -
+    6       16   -   -   -
+    7      256   -   -   -
+    7EXTBG 256 128   -   -">
+<meta property="og:description" content="The SNES has 8 background modes, two of which have major variations. The modes are selected by bits 0-2 of register `$2105`.
+
+    Mode    # Colors for BG
+             1   2   3   4
+    ======---=---=---=---=
+    0        4   4   4   4
+    1       16  16   4   -
+    2       16  16   -   -
+    3      256  16   -   -
+    4      256   4   -   -
+    5       16   4   -   -
+    6       16   -   -   -
+    7      256   -   -   -
+    7EXTBG 256 128   -   -">
+<meta property="twitter:description" content="The SNES has 8 background modes, two of which have major variations. The modes are selected by bits 0-2 of register `$2105`.
+
+    Mode    # Colors for BG
+             1   2   3   4
+    ======---=---=---=---=
+    0        4   4   4   4
+    1       16  16   4   -
+    2       16  16   -   -
+    3      256  16   -   -
+    4      256   4   -   -
+    5       16   4   -   -
+    6       16   -   -   -
+    7      256   -   -   -
+    7EXTBG 256 128   -   -">
+<meta property="og:title" content="Backgrounds">
+<meta property="twitter:title" content="Backgrounds">
+<meta property="og:site_name" content="Super Famicom Development Wiki">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@superfamicom">
+<meta name="twitter:creator" content="@superfamicom">
+<meta property="article:publisher" content="https://wiki.superfamicom.org">
+<meta property="og:url" content="https://wiki.superfamicom.org/backgrounds">
+<link rel="canonical" href="https://wiki.superfamicom.org/backgrounds">
+<meta property="article:published_time" content="2025-04-21T02:03:28.845Z">
+<meta property="article:modified_time" content="2025-04-21T02:03:28.852Z">
+<meta property="og:updated_time" content="2025-04-21T02:03:28.852Z">
+<script>window.basePath = '';</script>
+</head>
+<body class="dark-theme">
+<header class="navbar" role="banner">
+  <div class="background">
+    <div class="container">
+      <div class="navbar-header">
+        <h2 class="navbar-brand">
+          <a href="https://wiki.superfamicom.org/" title="Super Famicom Development Wiki">SFC Development Wiki</a>
+        </h2>
+        <form role="search" method="get" name="search" class="navbar-form" action="/search">
+          <input type="text" aria-label="Search" name="s" class="form-control search-query" placeholder="🔍 Search Super Famicom Development Wiki" required="">
+        </form>
+        <div class="navbar-buttons">
+          <div class="navbar-button">
+            <button class="theme-toggle" type="button" title="Toggle Light Mode &amp; Dark Mode">🌚</button>
+          </div>
+          <div class="navbar-button">
+            <a href="https://wiki.superfamicom.org/tags" class="button tags" title="Browse Document Tags">Browse Tags</a>
+          </div>
+          <div class="navbar-button">
+            <a href="https://wiki.superfamicom.org/new" class="button new-document" title="Create New Document">New Document</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="flash-messages container">
+</div>
+<div class="before-main-wrapper">
+  <div class="header-wrapper">
+    <div class="container">
+      <div class="header-titles">
+        <h1>Backgrounds</h1>
+        <a class="button" href="https://wiki.superfamicom.org/backgrounds/edit" title="Edit">✏️ Edit</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container main-section detail">
+  <div class="content">
+    <div class="row">
+      <main class="col-sm-12" role="main">
+                <article><h2 id="bg-modes-0">BG Modes</h2>
+<p>The SNES has 8 background modes, two of which have major variations. The modes are selected by bits 0-2 of register <code>$2105 (BGMODE)</code>. The variation of Mode 1 is selected by bit 3 of <code>$2105</code>, and the variation of Mode 7 is selected by bit 6 of <code>$2133 (SETINI)</code>.</p>
+<pre><code>Mode    # Colors for BG
+         1   2   3   4
+======---=---=---=---=
+0        4   4   4   4
+1       16  16   4   -
+2       16  16   -   -
+3      256  16   -   -
+4      256   4   -   -
+5       16   4   -   -
+6       16   -   -   -
+7      256   -   -   -
+7EXTBG 256 128   -   -
+8       16  16  16  16
+</code></pre>
+<p>In all modes and for all BGs, color 0 in any palette is considered transparent.</p>
+<h3 id="tile-maps-and-character-maps-19">Tile Maps &amp; Character Maps</h3>
+<p>Each BG has two regions of VRAM associated with it: one for the tilemap, and one for the character data.</p>
+<p>The tilemap address is selected by bits 2-7 of registers <code>$2107-A (BGnSC)</code>,
+ and the tilemap size is selected by bits 0-1 of that same register. All
+ tilemaps are 32x32, bits 0-1 simply select the number of 32x32 tilemaps
+ and how they're laid out in memory:</p>
+<pre><code>00  32x32   AA
+            AA
+01  64x32   AB
+            AB
+10  32x64   AA
+            BB
+11  64x64   AB
+            CD
+</code></pre>
+<p>Starting at the tilemap address, the first <code>$800</code> bytes are for tilemap A. Then come the <code>$800</code>
+ bytes for B, then C then D. Of course, if only A is required something 
+else could be stuck in the empty space. Each entry in the tilemap is 2 
+bytes, formatted as (high low):</p>
+<pre><code>vhopppcc cccccccc
+v/h        = Vertical/Horizontal flip this tile.
+o          = Tile priority.
+ppp        = Tile palette. The number of entries in the palette depends on the Mode and the BG.
+cccccccccc = Tile number.
+</code></pre>
+<p>To find the tilemap word address for a particular tile (X and Y), you'd use a formula something like this:</p>
+<pre><code>(Addr&lt;&lt;9) + ((Y&amp;0x1F)&lt;&lt;5) + (X&amp;0x1F) + (SY ? ((Y&amp;0x20)&lt;&lt;(SX ? 6 : 5)) : 0) + (SX ? ((X&amp;0x20)&lt;&lt;5) : 0)
+</code></pre>
+<p>The tile character data is stored at the address pointed to by registers <code>$210B-C</code>, starting at byte address:</p>
+<pre><code>(Base&lt;&lt;13) + (TileNumber * 8*NumBitplanes)
+</code></pre>
+<p>Each tile is (normally) 8x8 pixels. The data is stored in bitplanes. 
+Each row of the tile fills 1 byte, with the leftmost pixel being in bit 
+7. For 4-color tiles, bitplanes 0 and 1 are stored in the low and high 
+bytes of a word, with 8 words making up the tile. For a 16-color tile, 
+bitplanes 0 and 1 are stored as for a 4-color tile, followed by 
+bitplanes 2 and 3 in the same format. A 256-color tile is stored in the 
+same way as 2 4-color tiles.</p>
+<p>If the appropriate bit of <code>$2105</code> is set, each "tile" of 
+the tilemap actually corresponds to a 16x16 pixel block consisting of 
+Tile, Tile+1, Tile+16, and Tile+17. In this case, the 32x32 tile tilemap
+ codes for a 512x512 pixel screen rather than a 256x256 pixel screen as 
+normal. Thus, using both 16x16 tiles and the 64x64 tilemap each BG can 
+be up to 1024x1024 pixels. There is no wrapping like there is for 16x16 
+sprites: if you specify Tile=<code>$2FF</code>, you'll get <code>$2FF</code>, <code>$300</code>, <code>$30F</code>, and <code>$310</code> (as opposed to <code>$2FF</code>, <code>$2F0</code>, <code>$20F</code>, and <code>$200</code> you might otherwise expect). <code>$3FF</code> goes to <code>$000</code>, of course. Flipping in this mode flips the whole 16x16 tile, not just the individual 8x8 tiles.</p>
+<h3 id="bg-scrolling-53">BG Scrolling</h3>
+<p>Of course, depending on the BG mode and the interlace setting, Modes 
+0-6 have an actual display of 256x224 or 256x239 pixels. The BG scroll 
+registers <code>$210D-$2114</code> control the offset of the displayed area within that possible 256x256 to 1024x1024 pixel BG.</p>
+<p>The display can never fall outside the BG: if that would seem to be 
+the case, it simply wraps around automatically back to 0 (or 'tile' the 
+BG to fill the full 1024x1024, however you like to think of it).</p>
+<p>The registers <code>$210D-$2114</code> are all write-twice to set the
+ 16-bit value. The way this works, the last write to any of these 
+registers is stored in a buffer. When a new byte is written to any 
+register, the current register value, the previous byte written to any 
+of the 8 registers, and the new byte written are combined as follows:</p>
+<pre><code>For BGnHOFS: (NewByte&lt;&lt;8) | (PrevByte&amp;~7) | ((CurrentValue&gt;&gt;8)&amp;7)
+For BGnVOFS: (NewByte&lt;&lt;8) | PrevByte
+</code></pre>
+<p>For the most part, the details don't really matter as most games 
+always write two bytes to one of these registers. However, some games 
+write only one byte, or they do other odd things.</p>
+<p>Thus, the tilemap entry for a particular X and Y position on the screen may be calculated as follows:</p>
+<pre><code>Size = 8 or 16 depending on the appropriate bit of $2105
+TileX = (X + BGnHOFS)/Size
+TileY = (Y + BGnVOFS)/Size
+Look up the tile at TileX and TileY as described above.
+</code></pre>
+<p>Note that many games will set their vertical scroll values to -1 
+rather than 0. This is because the SNES loads OBJ data for each scanline
+ during the previous scanline. The very first line, though, wouldn't 
+have any OBJ data loaded! So the SNES doesn't actually output scanline 
+0, although it does everything to render it. These games want the first 
+line of their tilemap to be the first line output, so they set their 
+VOFS registers in this manner. Note that an interlace screen needs -2 
+rather than -1 to properly correct for the missing line 0 (and an 
+emulator would need to add 2 instead of 1 to account for this).</p>
+<h3 id="direct-color-mode-74">Direct Color Mode</h3>
+<p>For the 256-color BGs of Modes 3, 4, and 7, <code>$2130 (CGWSEL)</code>
+ bit 0 when set enables direct color mode. In this mode, instead of 
+ignoring ppp and using the character data as the palette index, you 
+treat the character data as expressing a color BBGGGRRR, and use the 3 
+bits of ppp as bgr to make the color</p>
+<pre><code>Red=RRRr0, Green=GGGg0, Blue=BBb00
+</code></pre>
+<p>In direct color mode you cannot have a black pixel, since any pixel 
+with character data = 0 is still considered transparent. Use one of the 
+almost-black colors instead (01, 08 or 09 are good choices).</p>
+<h4 id="mode-0-82">Mode 0</h4>
+<p>In Mode 0, you have 4 BGs of 4 colors each. To calculate the starting palette entry for a particular tile, you calculate:</p>
+<pre><code>ppp*4 + (BG#-1)*32
+</code></pre>
+<p>The background priority is (from 'front' to 'back'):</p>
+<pre><code>Sprites with priority 3
+BG1 tiles with priority 1
+BG2 tiles with priority 1
+Sprites with priority 2
+BG1 tiles with priority 0
+BG2 tiles with priority 0
+Sprites with priority 1
+BG3 tiles with priority 1
+BG4 tiles with priority 1
+Sprites with priority 0
+BG3 tiles with priority 0
+BG4 tiles with priority 0
+</code></pre>
+<h4 id="mode-1-102">Mode 1</h4>
+<p>In Mode 1, you have 2 BGs of 16 colors and 1 BG of 4 colors. To calculate the starting palette entry, calculate:</p>
+<pre><code>ppp*ncolors
+</code></pre>
+<p>The background priority varies depending on the setting of bit 3 of <code>$2105</code>. The priority is (from 'front' to 'back'):</p>
+<pre><code>BG3 tiles with priority 1 if bit 3 of $2105 is set
+Sprites with priority 3
+BG1 tiles with priority 1
+BG2 tiles with priority 1
+Sprites with priority 2
+BG1 tiles with priority 0
+BG2 tiles with priority 0
+Sprites with priority 1
+BG3 tiles with priority 1 if bit 3 of $2105 is clear
+Sprites with priority 0
+BG3 tiles with priority 0
+</code></pre>
+<h4 id="mode-2-121">Mode 2</h4>
+<p>In Mode 2, you have 2 BGs of 16 colors each. To calculate the starting palette index, calculate:</p>
+<pre><code>ppp*16
+</code></pre>
+<p>The priority is (from 'front' to 'back'):</p>
+<pre><code>Sprites with priority 3
+BG1 tiles with priority 1
+Sprites with priority 2
+BG2 tiles with priority 1
+Sprites with priority 1
+BG1 tiles with priority 0
+Sprites with priority 0
+BG2 tiles with priority 0
+</code></pre>
+<p>Note the change from Modes 0 and 1.</p>
+<p>Mode 2 is the first of the Offset-Per-Tile Modes. In this mode, the 
+'tile data' for BG3 actually encodes a (possible) replacement HOffset 
+and/or VOffset value for each tile of BG1 and/or BG2.
+Consider a visible scanline. Normally, you'd get the pixels something 
+like this:</p>
+<pre><code>HOFS = X + BGnHOFS
+VOFS = Y + BGnVOFS
+Pixel[X,Y] = GetPixel(GetTile(BGn, HOFS, VOFS), HOFS, VOFS)
+</code></pre>
+<p>With offset-per-tile, the formula is a little more complicated:</p>
+<pre><code>HOFS = X + BGnHOFS
+VOFS = Y + BGnVOFS
+ValidBit = 0x2000 for BG1, or 0x4000 for BG2
+if(!IsFirst8x8Tile(BGn, HOFS)){
+  /* Hopefully these calculations are right... */
+  Hval = GetTile(BG3, (HOFS&amp;7)|(((X-8)&amp;~7)+(BG3HOFS&amp;~7)), BG3VOFS)
+  Vval = GetTile(BG3, (HOFS&amp;7)|(((X-8)&amp;~7)+(BG3HOFS&amp;~7)), BG3VOFS + 8)
+  if(Hval&amp;ValidBit) HOFS = (HOFS&amp;7) | ((X&amp;~7) + (Hval&amp;~7))
+  if(Vval&amp;ValidBit) VOFS = Y + Vval
+}
+Pixel[X,Y] = GetPixel(Get8x8Tile(BGn, HOFS, VOFS), HOFS, VOFS)
+</code></pre>
+<p>In other words, number the visible tiles in BGn from 0-32, and the 
+'visible' tiles in BG3 the same way. BGn tile 0 is offset as normal, 
+then for <code>1&lt;=T&lt;33</code> BGn tile T gets the offset data from BG3 tile T-1. It doesn't matter whether or not the tiles actually align in any way.</p>
+<p>Note that the leftmost visible tile is done as normal in all cases 
+(although as little as 1 pixel may be visible, and if that still bothers
+ you then use a clip window to hide it), and the next tile uses the 
+tilemap entry for what would be BG3's leftmost tile. Note also that the 
+'new' offset completely overrides the BGnVOFS register, but the lower 3 
+bits of the BGnHOFS offset are still used. And note that the current Y 
+position on the screen does not affect which row of the BG3 tilemap to 
+reference, it's as if Y were always 0.</p>
+<p>On the other hand, note that even if BGn is 16x16 tiles, BG3 can 
+specify the offset for each 8x8 subtile. And if BG3 is 16x16, the 
+offsets will apply to all the corresponding 8x8 subtiles on BGn. Also 
+note that if BG3 is 16x16, we may end up using the same tile for Hval 
+and Vval.</p>
+<h4 id="mode-3-166">Mode 3</h4>
+<p>In Mode 3, you have one 256-color BG and one 16-color BG. To calculate the starting palette index, calculate:</p>
+<pre><code>BG1: 0
+BG2: ppp*16
+</code></pre>
+<p>The priority is (from 'front' to 'back'):</p>
+<pre><code>Sprites with priority 3
+BG1 tiles with priority 1
+Sprites with priority 2
+BG2 tiles with priority 1
+Sprites with priority 1
+BG1 tiles with priority 0
+Sprites with priority 0
+BG2 tiles with priority 0
+</code></pre>
+<p>Note that register <code>$2130</code> may enable Direct Color Mode on BG1.</p>
+<h4 id="mode-4-185">Mode 4</h4>
+<p>In Mode 4, you have one 256-color BG and one 4-color BG. To calculate the starting palette index, calculate:</p>
+<pre><code>BG1: 0
+BG2: ppp*4
+</code></pre>
+<p>The priority is (from 'front' to 'back'):</p>
+<pre><code>Sprites with priority 3
+BG1 tiles with priority 1
+Sprites with priority 2
+BG2 tiles with priority 1
+Sprites with priority 1
+BG1 tiles with priority 0
+Sprites with priority 0
+BG2 tiles with priority 0
+</code></pre>
+<p>Note that register <code>$2130</code> may enable Direct Color Mode on BG1.</p>
+<p>Mode 4 is the second of the Offset-Per-Tile Modes. It operates much 
+like Mode 2, however the SNES doesn't have time to load two offset 
+values.
+Instead, it does this:</p>
+<pre><code>Val = GetTile(BG3, ...)
+if(Val&amp;0x8000){
+  Hval = 0
+  Vval = Val
+}else{
+  Hval = Val
+  Vval = 0
+}
+</code></pre>
+<h4 id="mode-5-216">Mode 5</h4>
+<p>In Mode 5, you have one 16-color BG and one 4-color BG. To calculate the starting palette index, calculate:</p>
+<pre><code>ppp*ncolors
+</code></pre>
+<p>The priority is (from 'front' to 'back'):</p>
+<pre><code>Sprites with priority 3
+BG1 tiles with priority 1
+Sprites with priority 2
+BG2 tiles with priority 1
+Sprites with priority 1
+BG1 tiles with priority 0
+Sprites with priority 0
+BG2 tiles with priority 0
+</code></pre>
+<p>Mode 5 is rather different from the previous modes. Instead of using 
+an 8/16 pixel wide tile as normal, it always takes a 16 pixel wide tile 
+(the height may still be 8 or 16) and only uses half the pixels 
+(zero-based, the even pixels for subscreen tiles and the odd pixels for 
+mainscreen tiles). Then it forces pseudo-hires on to render a 512-pixel 
+wide scanline. Also, if Interlace mode is on (see bit 0 of <code>$2133</code>),
+ the screen is 448 or 478 half-lines high instead of 224 or 239. Either 
+the odd half-lines or the even half-lines are drawn each frame, as 
+indicated by bit 7 of <code>$213F</code>.
+Note that this means you must set <code>$212C</code> and <code>$212D</code> to the same value to get the 'expected' display.</p>
+<h4 id="mode-6-235">Mode 6</h4>
+<p>In Mode 6, you have only one 16-color BG. To calculate the starting palette index, calculate:</p>
+<pre><code>ppp*ncolors
+</code></pre>
+<p>The priority is (from 'front' to 'back'):</p>
+<pre><code>Sprites with priority 3
+BG1 tiles with priority 1
+Sprites with priority 2
+Sprites with priority 1
+BG1 tiles with priority 0
+Sprites with priority 0
+</code></pre>
+<p>Mode 6 has the same oddities as Mode 5. In addition, it is an offset 
+per tile mode! That part works just like as Mode 2. However, remember 
+that Mode 6 always uses 8 pixel (16 half-pixel) wide tiles, this applies
+ to BG3 as well as BG1. You can't apply the offset to an 8-half-pixel 
+tile nor to a 16-pixel wide area (except by using two offset values for 
+the two 8-pixel areas).</p>
+<h4 id="mode-7-251">Mode 7</h4>
+<p>Mode 7 is extremely different from all the modes before. You have one
+ BG of 256 colors. However, the tilemap and character map are laid out 
+completely differently.</p>
+<p>The tilemap and character map are interleaved, with the character 
+data being in the high byte of each word and the tilemap data being in 
+the low byte (note that in hardware, VRAM is set up such that odd bytes 
+are in one RAM chip and even in another, and each RAM chip has a 
+separate address bus. The Mode 7 renderer probably accesses the two 
+chips independently). The tilemap is 128x128 entries of one byte each, 
+with that one byte being simply a character map index. The character 
+data is stored packed pixel rather than bitplaned, with one pixel per 
+byte. Thus, to calculate the tilemap entry byte address for an X and Y 
+position in the playing field, you'd calculate:</p>
+<pre><code>(((Y&amp;~7)&lt;&lt;4) + (X&gt;&gt;3))&lt;&lt;1
+</code></pre>
+<p>To find the byte address of the pixel, you'd calculate:</p>
+<pre><code>(((TileData&lt;&lt;6) + ((Y&amp;7)&lt;&lt;3) + (X&amp;7))&lt;&lt;1) + 1
+</code></pre>
+<p>Note that bits 4-7 of <code>$2105</code> are ignored, as are <code>$2107-$210C</code>. They can be considered to be always 0.</p>
+<p>The next odd thing about Mode 7 is that you have full matrix transformation abilities. With creative use of <a href="https://wiki.superfamicom.org/dma-and-hdma">HDMA</a>, you can even change the matrix per scanline. See registers <code>$211B-$2120</code> for details on the matrix transformation formula. The entire screen can be flipped with bits 0-1 of <code>$211A (M7SEL)</code>.</p>
+<p>And finally, the playing field can actually be made larger than the tilemap. If bit 7 of <code>$211A</code> is set, bit 6 of <code>$211A</code> controls what is seen filling the space surrounding the map.</p>
+<p>The background priorities are:</p>
+<pre><code>Sprites with priority 3
+Sprites with priority 2
+Sprites with priority 1
+BG1
+Sprites with priority 0
+</code></pre>
+<p>When bit 6 of <code>$2133</code> is set, you get a related mode known
+ as Mode 7 EXTBG. In this mode, you get a BG2 with 128 colors, which 
+uses the same tilemap and character data as BG1 but interprets the high 
+bit of the pixel as a priority bit. The priority map is:</p>
+<pre><code>Sprites with priority 3
+Sprites with priority 2
+BG2 pixels with priority 1
+Sprites with priority 1
+BG1
+Sprites with priority 0
+BG2 pixels with priority 0
+</code></pre>
+<p>Note that the BG1 pixels (if BG1 is enabled) will usually completely obscure the low-priority BG2 pixels.</p>
+<p>BG2 uses the Mode 7 scrolling registers (<code>$210D-E</code>) rather than the 'normal' BG2 ones (<code>$210F-10</code>).
+ Subscreen, pseudo-hires, math, and clip windows work as normal; keep in
+ mind OBJ and that you can do things like enable BG1 on main and BG2 on 
+sub if you so desire. Mosaic is somewhat weird, see the section on 
+Mosaic below.</p>
+<p>Note that BG1, being a 256-color BG, can do Direct Color mode (in 
+this case, of course, there is no palette value so you're limited to 256
+ colors instead of 2048). BG2 does not do direct color mode, since it is
+ only 7-bit.</p>
+<h4 id="rendering-the-backgrounds-292">Rendering the Backgrounds</h4>
+<p>Rendering a BG is simple.</p>
+<ol>
+<li>Get your H and V offsets (either by reading the appropriate registers or by doing the offset-per-tile calculation).</li>
+<li>Use those to translate the screen X and Y into playing field X and Y (Note this is rather complicated for Mode 7)</li>
+<li>Look up the tilemap for those coordinates</li>
+<li>Use that to find the character data</li>
+<li>If necessary, de-bitplane it and stick it in a buffer.</li>
+</ol>
+<p>See the section "<a href="https://wiki.superfamicom.org/rendering-the-screen">Rendering the Screen</a>" for more details.</p>
+<h4 id="unresolved-issues-303">Unresolved Issues</h4>
+<ol>
+<li>What happens to the very first pixel on the scanline in Hires Math?</li>
+<li>Various registers still need to know when writing to them is effective.</li>
+</ol></article>
+      </main>
+    </div>
+    <div class="row actions">
+      <main class="col-sm-12">
+        <a class="button" href="https://wiki.superfamicom.org/backgrounds/edit" title="Edit">✏️ Edit</a>
+        <a class="button" href="https://wiki.superfamicom.org/backgrounds/history" title="View Document Edit History">📕 View History</a>
+      </main>
+    </div>
+    <div class="row bottom">
+      <main class="col-sm-12">
+        <div class="row content-sections">
+          <div class="col-sm-4">
+            <div class="section">
+              <h2>Related Documents</h2>
+              <ul class="related-documents">
+                <li><a href="https://wiki.superfamicom.org/65816-reference" title="65816 Reference">65816 Reference</a></li>
+                <li><a href="https://wiki.superfamicom.org/agenda-music-format" title="Agenda Music Format">Agenda Music Format</a></li>
+                <li><a href="https://wiki.superfamicom.org/bs-x-bios-functions" title="BS-X BIOS Functions">BS-X BIOS Functions</a></li>
+                <li><a href="https://wiki.superfamicom.org/background-mode-capability-table" title="Background Mode Capability Table">Background Mode Capability Table</a></li>
+                <li><a href="https://wiki.superfamicom.org/background-priority-chart" title="Background Priority Chart">Background Priority Chart</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="section">
+              <h2>Recent Documents</h2>
+              <ul class="recent-documents">
+                <li><a href="https://wiki.superfamicom.org/bazz" title="bazz">bazz</a></li>
+                <li><a href="https://wiki.superfamicom.org/cx4-command-matrix" title="Cx4 Command Matrix">Cx4 Command Matrix</a></li>
+                <li><a href="https://wiki.superfamicom.org/cx4-opcode-matrix" title="Cx4 Opcode Matrix">Cx4 Opcode Matrix</a></li>
+                <li><a href="https://wiki.superfamicom.org/super-fx-cycle-times" title="Super FX cycle times">Super FX cycle times</a></li>
+                <li><a href="https://wiki.superfamicom.org/super-fx-acronyms" title="Super FX acronyms">Super FX acronyms</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="section">
+              <h2>Popular Documents</h2>
+              <ul class="popular-documents">
+                <li><a href="https://wiki.superfamicom.org/spc700-reference" title="SPC700 Reference">SPC700 Reference</a></li>
+                <li><a href="https://wiki.superfamicom.org/registers" title="Registers">Registers</a></li>
+                <li><a href="https://wiki.superfamicom.org/memory-mapping" title="Memory Mapping">Memory Mapping</a></li>
+                <li><a href="https://wiki.superfamicom.org/65816-reference" title="65816 Reference">65816 Reference</a></li>
+                <li><a href="https://wiki.superfamicom.org/schematics-ports-and-pinouts" title="Schematics, Ports, and Pinouts">Schematics, Ports, and Pinouts</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="row">
+      ©2025 Super Famicom Development Wiki | 🐌 | 🌺 | <a href="https://github.com/uttori/uttori-wiki" rel="external" title="Powered by Uttori Wiki">🔌 by Uttori Wiki</a> | <a href="https://twitter.com/superfamicom" rel="external" title="Help &amp; Support">Help &amp; Support</a>
+    </div>
+  </div>
+</footer>
+<script type="module" src="Backgrounds%20_%20Super%20Famicom%20Development%20Wiki_files/page.js"></script><script async="" src="Backgrounds%20_%20Super%20Famicom%20Development%20Wiki_files/google-analytics_analytics.js"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RC5NJVRC8F');
+</script>
+
+
+</body></html>

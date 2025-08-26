@@ -73,6 +73,73 @@
         jsr LoadVRAM
         txs
 
+        ; initialize tilemap mirror
+        ldx #$0000
+tilemapLoop:
+        lda #$00
+        cpx #$0040
+        bcc notTopBot
+        cpx #$07c0
+        bcs notTopBot
+        clc
+        adc #$02
+notTopBot:
+        pha
+        setA16
+        txa
+        bit #$003f
+        beq notRL
+        clc
+        adc #$0002
+        bit #$003f
+        beq notRL
+        setA8
+        pla
+        clc
+        adc #$01
+        pha
+notRL:
+        setA8
+        pla
+        sta TM1MIRROR, X                ; get correct character
+        inx
+
+        lda #$00
+        cpx #$07c0
+        bcc notTop
+        clc
+        adc #$80                        ; V mirror if on bottom
+notTop:
+        stx DEBUG
+        pha
+        setA16
+        txa
+        inc
+        bit #$003f
+        bne notR
+        setA8
+        pla
+        clc
+        adc #$40                        ; H mirror if on right
+        pha
+notR:
+        setA8
+        pla
+        sta TM1MIRROR, X                ; flip if neccesary
+        inx
+
+        cpx #$0800
+        bne tilemapLoop
+
+        ; copy tilemap mirror into VRAM
+        tsx
+        pea BG1_TILEMAP
+        pea TM1MIRROR
+        ldy #$0800                      ; number of bytes ($800) to transfer (full 32x32 tilemap)
+        phy
+        jsr LoadVRAM
+        txs
+
         ; initialize OAMRAM mirror
         ldx #$0000
         ; upper-left sprite

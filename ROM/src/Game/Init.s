@@ -110,7 +110,6 @@ notRL:
         clc
         adc #$80                        ; V mirror if on bottom
 notTop:
-        stx DEBUG
         pha
         setA16
         txa

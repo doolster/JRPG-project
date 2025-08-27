@@ -12,6 +12,10 @@ VER_SPEED   = $0301     ; the vertical speed
 JOYRAW1     = $0302     ; data read from joypad 1
 JOYTRIGGER1 = $0304     ; trigger read from joypad 1
 JOYHELD1    = $0306     ; held buttons read from joypad 1
+PLAYER_X    = $0308
+PLAYER_Y    = $030a
+H_SCROLL    = $030c
+V_SCROLL    = $030e
 OAMMIRROR   = $0400     ; location of OAMRAM mirror in WRAM
 TM1MIRROR   = $0620     ; location of tilemap mirror for BG 1 in WRAM
 ;-------------------------------------------------------------------------------

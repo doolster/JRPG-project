@@ -14,6 +14,7 @@
 ;-------------------------------------------------------------------------------
 
 ;----- Includes ----------------------------------------------------------------
+.include "Registers.inc"
 .include "macros.inc"
 .include "GameConstants.inc"
 .include "MemoryMapWRAM.inc"
@@ -45,10 +46,30 @@ CheckUpButton:
         and #UP_BUTTON
         beq CheckUpButtonDone               ; if neither has occured, move on
         ; else, move sprites up
+        lda V_SCROLL                        ; move with scrolling
+        sec
+        rep #$80
+        sbc VER_SPEED
+        bmi MoveSpritesUp                   ; if at top of screen, move sprite instead of scrolling
+        setXY8
+        ldy #$01
+        ldx OAMMIRROR, Y
+        cpx #(SCREEN_BOTTOM/2 - SPRITE_SIZE)
+        setXY16
+        bcs MoveSpritesUp
+        sta V_SCROLL
+        setA8
+        sta BG1VOFS
+        ldx #$0001
+        lda V_SCROLL, X         ; definitely a better way to do this...
+        sta BG1VOFS
+        bra CheckUpButtonDone
+MoveSpritesUp:
+        ; move sprites
         ldx #$0000                          ; X is the loop counter
         ldy #$0001                          ; Y is the offset into the OAM mirror
         setA8                               ; set A to 8-bit
-MoveSpritesUp:
+MoveSpritesUpLoop:
         lda OAMMIRROR, Y
         sec
         sbc VER_SPEED
@@ -61,7 +82,7 @@ MoveSpritesUp:
         iny
         inx
         cpx #$0004                          ; unless X = 4, continue loop
-        bne MoveSpritesUp
+        bne MoveSpritesUpLoop
 CheckUpButtonDone:
         setA16                              ; set A to 16-bit
 
@@ -72,6 +93,26 @@ CheckDownButton:
         and #DOWN_BUTTON
         beq CheckDownButtonDone             ; if neither has occured, move on
         ; else, move sprites down
+        lda V_SCROLL
+        clc
+        adc VER_SPEED
+        cmp #$20
+        bcs MoveSpritesDown
+        setXY8
+        ldy #$01
+        ldx OAMMIRROR, Y
+        cpx #(SCREEN_BOTTOM/2 - SPRITE_SIZE)
+        setXY16
+        bcc MoveSpritesDown
+        sta V_SCROLL
+        setA8
+        sta BG1VOFS
+        ldx #$0001
+        lda V_SCROLL, X
+        sta BG1VOFS
+        bra CheckDownButtonDone
+MoveSpritesDown:
+        ; move sprites
         ldx #$0000                          ; X is the loop counter
         ldy #$0001                          ; Y is the offset into the OAM mirror
         setA8                               ; set A to 8-bit
@@ -81,7 +122,7 @@ CheckDownButton:
         adc VER_SPEED
         cmp #(SCREEN_BOTTOM - 2 * SPRITE_SIZE)
         bcs CorrectVerticalPositionUp
-MoveSpritesDown:
+MoveSpritesDownLoop:
         lda OAMMIRROR, Y
         clc
         adc VER_SPEED
@@ -92,7 +133,7 @@ MoveSpritesDown:
         iny
         inx
         cpx #$0004                          ; unless X = 4, continue loop
-        bne MoveSpritesDown
+        bne MoveSpritesDownLoop
 CheckDownButtonDone:
         setA16                              ; set A to 16-bit
         jmp CheckLeftButton                 ; continue input check

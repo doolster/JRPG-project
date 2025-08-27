@@ -222,6 +222,11 @@ OBJLoop:
         sta HOR_SPEED
         sta VER_SPEED
 
+        ; set initial BG scroll offset
+        ldx #$0000
+        stx H_SCROLL
+        stx V_SCROLL
+
         ; make Objects and BG 1 visible
         lda #$11
         sta TM

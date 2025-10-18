@@ -1,0 +1,2 @@
+In C:\Users\ZWdoo\Documents\SNESDev\JRPG-Project\ROM
+Run "cmake --build build"

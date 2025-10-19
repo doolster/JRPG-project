@@ -59,7 +59,7 @@
         ; initialize BG 1
         lda #$01
         sta BGMODE                      ; set BG mode to 1
-        lda #BG1_TILEMAP>>8             ; shifting to get correct format for register
+        lda #(BG1_TILEMAP>>8 + 1)       ; shifting to get correct format for register
         sta BG1SC                       ; set address for BG 1 tilemap in VRAM
         lda #BG1_CHARS>>12              ; shifting to get correct format for register
         sta BG12NBA                     ; set address for BG 1 characters in VRAM
@@ -130,11 +130,74 @@ notR:
         cpx #$0800
         bne tilemapLoop
 
+        ldx #$0000      ; second half of tile map
+tilemapLoop2:
+        lda #$00
+        cpx #$0040
+        bcc notTopBot2
+        cpx #$07c0
+        bcs notTopBot2
+        clc
+        adc #$02
+notTopBot2:
+        pha
+        setA16
+        txa
+        bit #$003f
+        beq notRL2
+        clc
+        adc #$0002
+        bit #$003f
+        beq notRL2
+        setA8
+        pla
+        clc
+        adc #$01
+        pha
+notRL2:
+        setA8
+        pla
+        sta $0e20, X                ; get correct character ($0e20 = TM1MIRROR + #$0800)
+        inx
+
+        lda #$00
+        cpx #$07c0
+        bcc notTop2
+        clc
+        adc #$80                        ; V mirror if on bottom
+notTop2:
+        pha
+        setA16
+        txa
+        inc
+        bit #$003f
+        bne notR2
+        setA8
+        pla
+        clc
+        adc #$40                        ; H mirror if on right
+        pha
+notR2:
+        setA8
+        pla
+        sta $0e20, X                    ; flip if neccesary
+        inx
+
+        cpx #$0800
+        bne tilemapLoop2
+
+        setA16                          ; store the current BG height and width
+        lda #$1000
+        sta BG_WIDTH
+        lda #$0800
+        sta BG_HEIGHT
+        setA8
+
         ; copy tilemap mirror into VRAM
         tsx
         pea BG1_TILEMAP
         pea TM1MIRROR
-        ldy #$0800                      ; number of bytes ($800) to transfer (full 32x32 tilemap)
+        ldy #$1000                      ; number of bytes ($800) to transfer (full 32x32 tilemap)
         phy
         jsr LoadVRAM
         txs

@@ -8,11 +8,11 @@ GAME_CONSTANTS_INC = 1
 ;----- Game Constants ----------------------------------------------------------
     ; we use these constants to check for collisions with the screen boundaries
 SCREEN_LEFT     = $03   ; left screen boundary = 3
-SCREEN_RIGHT    = $fd   ; right screen boundary = 255
+SCREEN_RIGHT    = $ff   ; right screen boundary = 255
 SCREEN_TOP      = $03   ; top screen boundary = 3
-SCREEN_BOTTOM   = $df   ; bottom screen boundary = 223
+SCREEN_BOTTOM   = $e0   ; bottom screen boundary = 224
     ; a simple constant to define the sprite movement speed
-SPRITE_SPEED    = $02   ; the sprites will move 2 pixel per frame
+SPRITE_SPEED    = $0002 ; the sprites will move 2 pixel per frame (16 bit for easier math)
     ; this makes the code a bit more readable
 SPRITE_SIZE     = $08   ; sprites are 8 by 8 pixel
 OAMMIRROR_SIZE  = $0220 ; OAMRAM can hold data for 128 sprites, 4 bytes each

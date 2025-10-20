@@ -31,6 +31,20 @@ MACROS_INC = 1
 	rep #$10
 .endmacro
 
+; [ bne/beq extension ]
+
+.macro jeq addr
+    bne mbne
+    jmp addr
+    mbne:
+.endmacro
+
+.macro jne addr
+    beq mbeq
+    jmp addr
+    mbeq:
+.endmacro
+
 ; ------------------------------------------------------------------------------
 
 ; [ DMA macros ]

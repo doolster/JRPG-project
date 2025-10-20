@@ -187,9 +187,9 @@ notR2:
         bne tilemapLoop2
 
         setA16                          ; store the current BG height and width
-        lda #$1000
+        lda #$0200
         sta BG_WIDTH
-        lda #$0800
+        lda #$0100
         sta BG_HEIGHT
         setA8
 
@@ -197,7 +197,7 @@ notR2:
         tsx
         pea BG1_TILEMAP
         pea TM1MIRROR
-        ldy #$1000                      ; number of bytes ($800) to transfer (full 32x32 tilemap)
+        ldy #$1000                      ; number of bytes ($1000) to transfer (2 full 32x32 tilemaps)
         phy
         jsr LoadVRAM
         txs
@@ -281,14 +281,20 @@ OBJLoop:
         sta OAMMIRROR, X
 
         ; set initial horizontal and vertical speed
-        lda #SPRITE_SPEED
-        sta HOR_SPEED
-        sta VER_SPEED
+        ldx #SPRITE_SPEED
+        stx PLAYER_SPEED
 
         ; set initial BG scroll offset
         ldx #$0000
         stx H_SCROLL
         stx V_SCROLL
+
+        ; set initial player position
+        sta DEBUG
+        ldx #(SCREEN_BOTTOM/2 - SPRITE_SIZE)
+        stx PLAYER_Y
+        ldx #(SCREEN_RIGHT/2 - SPRITE_SIZE)
+        stx PLAYER_X
 
         ; make Objects and BG 1 visible
         lda #$11

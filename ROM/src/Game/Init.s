@@ -290,7 +290,6 @@ OBJLoop:
         stx V_SCROLL
 
         ; set initial player position
-        sta DEBUG
         ldx #(SCREEN_BOTTOM/2 - SPRITE_SIZE)
         stx PLAYER_Y
         ldx #(SCREEN_RIGHT/2 - SPRITE_SIZE)

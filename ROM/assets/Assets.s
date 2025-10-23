@@ -9,12 +9,14 @@
 .export     ColorData
 .export     BGColor
 .export     BGCharData
+.export     BGTileMap
 ;-------------------------------------------------------------------------------
 
 ;----- Assset Data -------------------------------------------------------------
 .segment "SPRITEDATA"
-BGColor:    .incbin "GrassColors.pal"
+BGColor:    .incbin "grassbg.pal"
 ColorData:  .incbin "SpriteColors.pal"
 SpriteData: .incbin "Sprites.vra"
-BGCharData: .incbin "GrassTiles.bin"
+BGCharData: .incbin "grassbgTileset.bin"
+BGTileMap:  .incbin "grassbgTilemap.bin"
 ;-------------------------------------------------------------------------------

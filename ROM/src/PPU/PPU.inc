@@ -9,5 +9,6 @@ PPU_INC = 1
 .import     LoadVRAM
 .import     LoadCGRAM
 .import     UpdateOAMRAM
+.import     LoadWRAM
 ;-------------------------------------------------------------------------------
 .endif

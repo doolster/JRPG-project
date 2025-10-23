@@ -47,7 +47,7 @@
         jsr LoadCGRAM
         txs
 
-        ; load sprites into VRAM
+        ; load sprite characters into VRAM
         tsx                             ; save current stack pointer
         pea SPRITE_CHARS                ; push VRAM destination address to stack
         pea SpriteData                  ; push sprite data source address to stack
@@ -68,136 +68,55 @@
         tsx
         pea BG1_CHARS
         pea BGCharData
-        ldy #$0080                      ; number of bytes (128/$80) to transfer (4 8x8 4BPP characters)
+        ldy #$00c0                      ; number of bytes to transfer (6 8x8 4BPP characters)
         phy
         jsr LoadVRAM
         txs
 
-        ; initialize tilemap mirror
-        ldx #$0000
-tilemapLoop:
-        lda #$00
-        cpx #$0040
-        bcc notTopBot
-        cpx #$07c0
-        bcs notTopBot
-        clc
-        adc #$02
-notTopBot:
-        pha
-        setA16
-        txa
-        bit #$003f
-        beq notRL
-        clc
-        adc #$0002
-        bit #$003f
-        beq notRL
-        setA8
-        pla
-        clc
-        adc #$01
-        pha
-notRL:
-        setA8
-        pla
-        sta TM1MIRROR, X                ; get correct character
-        inx
-
-        lda #$00
-        cpx #$07c0
-        bcc notTop
-        clc
-        adc #$80                        ; V mirror if on bottom
-notTop:
-        pha
-        setA16
-        txa
-        inc
-        bit #$003f
-        bne notR
-        setA8
-        pla
-        clc
-        adc #$40                        ; H mirror if on right
-        pha
-notR:
-        setA8
-        pla
-        sta TM1MIRROR, X                ; flip if neccesary
-        inx
-
-        cpx #$0800
-        bne tilemapLoop
-
-        ldx #$0000      ; second half of tile map
-tilemapLoop2:
-        lda #$00
-        cpx #$0040
-        bcc notTopBot2
-        cpx #$07c0
-        bcs notTopBot2
-        clc
-        adc #$02
-notTopBot2:
-        pha
-        setA16
-        txa
-        bit #$003f
-        beq notRL2
-        clc
-        adc #$0002
-        bit #$003f
-        beq notRL2
-        setA8
-        pla
-        clc
-        adc #$01
-        pha
-notRL2:
-        setA8
-        pla
-        sta $0e20, X                ; get correct character ($0e20 = TM1MIRROR + #$0800)
-        inx
-
-        lda #$00
-        cpx #$07c0
-        bcc notTop2
-        clc
-        adc #$80                        ; V mirror if on bottom
-notTop2:
-        pha
-        setA16
-        txa
-        inc
-        bit #$003f
-        bne notR2
-        setA8
-        pla
-        clc
-        adc #$40                        ; H mirror if on right
-        pha
-notR2:
-        setA8
-        pla
-        sta $0e20, X                    ; flip if neccesary
-        inx
-
-        cpx #$0800
-        bne tilemapLoop2
-
         setA16                          ; store the current BG height and width
-        lda #$0200
+        lda #$0118
         sta BG_WIDTH
-        lda #$0100
+        lda #$01f0
         sta BG_HEIGHT
+        setA8
+
+        setA16                          ; initialize tilemap mirror fro starting screen
+        ldy #$0000
+LoadRow:
+        lda BG_WIDTH
+        lsr2
+        setA8
+        sta M7A
+        stz M7A         ; Note this only works for backgounds with width < #$0400
+        sty M7B                         ; multiply row # by byte width of background
+        setA16
+        lda MPYL
+        clc
+        adc #BGTileMap
+        tax                             ; starting address (#BGTileMap + (BG_WIDTH/4 * Y))
+
+        phy
+        tya
+        asl6
+        clc
+        adc #TM1MIRROR
+        tay                             ; destination address (#TM1MIRROR + (64 * Y))
+
+        lda #$003f                      ; # of bytes to transfer minus 1 (32 tiles * 2 bytes)
+
+        mvn #$00, #$00                  ; move one row from BGTileMap to TM1MIRROR (bank 00 to bank 00)
+
+        ply
+        iny
+        cpy #$1d
+        bcc LoadRow
         setA8
 
         ; copy tilemap mirror into VRAM
         tsx
         pea BG1_TILEMAP
         pea TM1MIRROR
-        ldy #$1000                      ; number of bytes ($1000) to transfer (2 full 32x32 tilemaps)
+        ldy #$0700                      ; # of bytes to transfer (1 screen of 32x28 total tiles)
         phy
         jsr LoadVRAM
         txs

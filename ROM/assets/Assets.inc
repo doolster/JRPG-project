@@ -10,5 +10,6 @@ ASSETS_INC = 1
 .import     ColorData
 .import     BGColor
 .import     BGCharData
+.import     BGTileMap
 ;-------------------------------------------------------------------------------
 .endif

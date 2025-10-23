@@ -8,6 +8,7 @@
 .export     LoadVRAM
 .export     LoadCGRAM
 .export     UpdateOAMRAM
+.export     LoadWRAM
 ;-------------------------------------------------------------------------------
 
 ;----- Assembler Directives ----------------------------------------------------
@@ -95,6 +96,35 @@
         DMA0 #%00000010, #<OAMDATA, MirrorAddr, #$0220
 
         ; OAMRAM update is done, restore frame and stack pointer
+        pld                     ; restore caller's frame pointer
+        plx                     ; restore old stack pointer
+        rts
+.endproc
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+;   Load data into WRAM
+;   Parameters: NumBytes: .word, SrcPointer: .addr, DestPointer: .addr
+;-------------------------------------------------------------------------------
+.proc   LoadWRAM
+        phx                     ; save old stack pointer
+        ; create frame pointer
+        phd                     ; push Direct Register to stack
+        tsc                     ; transfer Stack to... (via Accumulator)
+        tcd                     ; ...Direct Register.
+        ; use constants to access arguments on stack with Direct Addressing
+        NumBytes    = $07       ; number of bytes to transfer
+        SrcPointer  = $09       ; source address of sprite data
+        DestPointer = $0b       ; destination address in VRAM
+
+        ; set CGDRAM destination address
+        stz WMADDH
+        ldx DestPointer         ; get destination address
+        stx WMADDL               ; set CGRAM destination address
+
+        DMA0 #%00000000, #<WMDATA, SrcPointer, NumBytes
+
+        ; all done
         pld                     ; restore caller's frame pointer
         plx                     ; restore old stack pointer
         rts
